@@ -11,9 +11,28 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
+    <header>
+      <h1><%= link_to "SweetsBook", root_path %></h1>
+      <nav>
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "投稿フォーム", new_post_image_path %></li>
+            <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+          <% else %>
+            <li><%= link_to "About", about_path %></li>
+            <li><%= link_to "新規登録", new_user_registration_path %></li>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </main>
+
     <%= yield %>
   </body>
 </html>
