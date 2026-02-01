@@ -1,2 +1,27 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<section class="post-detail">
+  <div class="post-header">
+    <h1><%= @post.title %></h1>
+    <p class="post-author">作成者: <%= @post.user.name %> </p>
+  </div>
+  <div class="post-image">
+    <% if @post.image.attached? %>
+      <%= image_tag @post.image, alt: @post.title %>
+    <% end %>
+  </div>
+  <div class="post-body">
+    <h2>説明</h2>
+    <p><%= @post.body %></p>
+
+    <h2>材料</h2>
+
+    <h2>作り方</h2>
+  </div>
+
+  <div class="post-actions">
+    <%= link_to '一覧に戻る', posts_path %>
+    
+    <% if @post.user == current_user %>
+      <%= link_to '編集する', edit_post_path(@post) %>
+    <% end %>
+  </div>
+</section>
