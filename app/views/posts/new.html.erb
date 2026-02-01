@@ -1,6 +1,6 @@
 <h1>新規投稿</h1>
 
-<%= form_with model: @post, local: true do |f| %>
+<%= form_with model: @post do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= @post.errors.count %>件のエラーがあります</h2>

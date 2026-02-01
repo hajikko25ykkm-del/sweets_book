@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   
   def index
+    @posts = Post.all
   end
 
   def show
@@ -28,10 +29,16 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to post_path(@post)
+      redirect_to post_path(@post), notice: "投稿を更新しました。"
     else
       render :edit
     end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to posts_path, notice: "投稿を削除しました。"
   end
 
   private

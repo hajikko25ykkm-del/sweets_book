@@ -1,27 +1,35 @@
 <section class="post-detail">
   <div class="post-header">
-    <h1><%= @post.title %></h1>
-    <p class="post-author">作成者: <%= @post.user.name %> </p>
+    
   </div>
   <div class="post-image">
     <% if @post.image.attached? %>
-      <%= image_tag @post.image, alt: @post.title %>
+      <%= image_tag @post.image, alt: @post.title, class: "post-detail-image" %>
     <% end %>
   </div>
+
   <div class="post-body">
-    <h2>説明</h2>
-    <p><%= @post.body %></p>
+    <h1><%= @post.title %></h1>
+    <p class="post-author">作成者： <%= @post.user.name %> </p>
+    <p>ポイント： <%= @post.body %></p>
 
     <h2>材料</h2>
 
     <h2>作り方</h2>
+    
   </div>
+
+  <p class="post-date">
+    投稿日：<%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
+  </p>
 
   <div class="post-actions">
     <%= link_to '一覧に戻る', posts_path %>
     
     <% if @post.user == current_user %>
       <%= link_to '編集する', edit_post_path(@post) %>
+      <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
     <% end %>
   </div>
+  
 </section>

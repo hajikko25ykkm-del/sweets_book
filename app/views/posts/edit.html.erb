@@ -1,2 +1,37 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<section class="post-edit">
+  <h2>レシピを編集する</h2>
+
+  <%= form_with model: @post do |f| %>
+    <% if @post.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= @post.errors.count %>件のエラーがあります</h2>
+
+        <ul>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :title, "お菓子の名前" %>
+      <%= f.text_field :title %>
+    </div>
+
+    <div class="field">
+      <%= f.label :image, "写真を変更する" %>
+      <%= f.file_field :image %>
+    </div>
+
+    <div class="field">
+      <%= f.label :body, "コツ・ポイント" %>
+      <%= f.text_area :body %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "更新する" %>
+      <%= link_to "戻る", post_path(@post) %>
+    </div>
+  <% end %>
+</section>
