@@ -1,2 +1,21 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<section class="user-profile">
+  <h2><%= @user.name %> さんのレシピ集</h2>
+
+  <% if @user == current_user %>
+    <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn-edit" %>
+  <% end %>
+
+  <hr>
+
+  <div class="post-grid">
+    <% @posts.each do |post| %>
+      <div class="post-card">
+        <% if post.image.attached? %>
+          <%= image_tag post.image, class: "post-image-square" %>
+        <% end %>
+        <p><%= link_to post.title, post_path(post) %></p>
+      </div>
+    <% end %>
+  </div>
+
+</section>

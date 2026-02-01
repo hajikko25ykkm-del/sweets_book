@@ -1,2 +1,27 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="post-form-container">
+  <h2>アカウント情報の編集</h2>
+
+  <%= form_with model: @user, local: true do |f| %>
+    <div class="field">
+      <%= f.label :name, "名前" %>
+      <%= f.text_field :name, class: "input-form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email, class: "input-form" %>
+    </div>
+
+    <div class="actions-group">
+      <%= f.submit "変更を保存", class: "btn-link-style update-action" %>
+      <%= link_to "戻る", user_path(@user), class: "btn-link-style back-action" %>
+    </div>
+  <% end %>
+
+  <h3>アカウントの削除</h3>
+    <%= button_to "退会する", user_registration_path, 
+      method: :delete, 
+      class: "btn btn-danger",
+      onclick: "return confirm('本当に退会しますか？\n投稿したデータもすべて消去されます。');" %>
+
+</div>
