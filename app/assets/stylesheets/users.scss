@@ -1,3 +1,64 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.user-posts {
+  padding: 40px 20px;
+
+  h3 {
+    text-align: center;
+    color: #5d4037;
+    margin-bottom: 30px;
+  }
+
+  .post-grid {
+    display: flex;         /* 横に並べる */
+    flex-wrap: wrap;       /* 折り返す */
+    gap: 25px;             /* カード同士の隙間 */
+    justify-content: center; /* 全体を中央に寄せる（左寄せなら flex-start） */
+  }
+
+  .post-card {
+    /* ここが重要！横幅を制限します */
+    width: 250px;          /* 固定幅にするか、20%などで指定 */
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;    /* カード内の文字を中央に */
+    transition: transform 0.3s ease; /* ふわっと動く準備 */
+
+    &:hover {
+      transform: translateY(-5px); /* マウスを乗せると少し浮く */
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    img {
+      width: 100%;         /* カードの幅いっぱいに */
+      height: 180px;       /* 高さを固定 */
+      object-fit: cover;   /* 画像を歪ませずに切り抜き */
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #ff9900;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

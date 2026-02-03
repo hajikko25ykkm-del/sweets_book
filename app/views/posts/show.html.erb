@@ -1,29 +1,42 @@
-<section class="post-detail">
-  <div class="post-header">
+<div class="recipe-detail-container">
+  
+  <div class="recipe-main-header">
+    <div class="recipe-image">
+      <%= image_tag @post.image if @post.image.attached? %>
+    </div>
     
-  </div>
-  <div class="post-image">
-    <% if @post.image.attached? %>
-      <%= image_tag @post.image, alt: @post.title, class: "post-detail-image" %>
-    <% end %>
-  </div>
+    <div class="recipe-info">
+      <h1 class="recipe-title"><%= @post.title %></h1>
+  
+      <div class="recipe-comment">
+        <p><span class="label">ひとこと:</span> <%= @post.body %></p>
+      </div>
 
-  <div class="post-body">
-    <h1><%= @post.title %></h1>
-    <p class="post-author">作成者： <%= @post.user.name %> </p>
-    <p>ポイント： <%= @post.body %></p>
-
-    <h2>材料</h2>
-
-    <h2>作り方</h2>
-    
+      <div class="recipe-meta">
+        <p class="recipe-user">投稿者: <%= @post.user.name %> さん</p>
+        <p class="recipe-date">
+          投稿日: <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
+        </p>
+      </div>
+    </div>
   </div>
 
-  <p class="post-date">
-    投稿日：<%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
-  </p>
+  <hr class="recipe-divider">
 
-  <div class="post-actions">
+
+  <div class="recipe-content">
+    <div class="recipe-ingredients">
+      <h3>材料</h3>
+      <div class="ingredients-box"></div>
+    </div>
+
+    <div class="recipe-process">
+      <h3>作り方</h3>
+      <div class="process-box"></div>
+    </div>
+  </div>
+
+  <div class="recipe-actions">
     <%= link_to '一覧に戻る', posts_path %>
     
     <% if @post.user == current_user %>
@@ -31,5 +44,5 @@
       <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
     <% end %>
   </div>
-  
-</section>
+
+</div>
