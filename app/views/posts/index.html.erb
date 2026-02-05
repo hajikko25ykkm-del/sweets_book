@@ -10,10 +10,12 @@
               <%= image_tag post.image %>
             <% end %>
           </div>
-          
+
           <div class="post-info">
             <h3 class="post-title"><%= post.title %></h3>
             <p class="post-user">作成者: <%= post.user.name %></p>
+            <%= link_to post.user.name, user_path(post.user) %>
+            <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
           </div>
         </div>
       <% end %>

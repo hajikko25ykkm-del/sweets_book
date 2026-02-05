@@ -1,0 +1,7 @@
+<h2>フォロー中</h2>
+<% @users.each do |user| %>
+  <p>
+    <%= user.name %>
+    <%= render "relationships/btn", user: user %>
+  </p>
+<% end %>

@@ -1,11 +1,17 @@
-<section class="user-profile">
-
-  <h2><%= @user.name %> さんのレシピ集</h2>
+<div class="user-profile">
+  <h1><%= @user.name %>のページ</h1>
+  
   <% if @user == current_user %>
-    <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn-edit" %>
+    <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn" %>
+  <% else %>
+    <%= render "relationships/btn", user: @user %>
   <% end %>
 
-</section>
+  <div class="stats">
+    <p>フォロー数: <%= link_to @user.followings.count, user_followings_path(@user) %></p>
+    <p>フォロワー数: <%= link_to @user.followers.count, user_followers_path(@user) %></p>
+  </div>
+</div>
 
 <hr>
 

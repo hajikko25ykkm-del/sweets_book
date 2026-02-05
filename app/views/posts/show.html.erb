@@ -13,7 +13,7 @@
       </div>
 
       <div class="recipe-meta">
-        <p class="recipe-user">投稿者: <%= @post.user.name %> さん</p>
+        <p class="recipe-user">投稿者: <%= link_to @post.user.name, user_path(@post.user) %> さん</p>
         <p class="recipe-date">
           投稿日: <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
         </p>

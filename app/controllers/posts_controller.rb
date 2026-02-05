@@ -1,7 +1,16 @@
 class PostsController < ApplicationController
   
   def index
-    @posts = Post.all.order(created_at: :desc)
+    if user_signed_in? # ログインしている人には、公開ユーザーと自分がフォローしているユーザーの投稿を表示 
+      @posts = Post.joins(:user).where(
+        "users.privacy = ? OR users.id IN (?) OR users.id = ?", 
+        false, 
+        current_user.following_ids, 
+        current_user.id
+      ).order(created_at: :desc)
+    else # ログインしていない人には、公開ユーザーの投稿だけ表示
+      @posts = Post.joins(:user).where(users: { privacy: false }).order(created_at: :desc)
+    end
   end
 
   def show

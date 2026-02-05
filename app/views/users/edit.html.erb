@@ -12,6 +12,16 @@
       <%= f.email_field :email, class: "input-form" %>
     </div>
 
+    <div class="field">
+      <%= f.label :privacy, "プロフィール公開設定" %>
+      <div class="privacy-options">
+        <%= f.radio_button :privacy, false %>
+        <%= f.label :privacy_false, "公開" %>
+        <%= f.radio_button :privacy, true %>
+        <%= f.label :privacy_true, "非公開" %>
+      </div>
+    </div>
+
     <div class="actions-group">
       <%= f.submit "変更を保存", class: "btn-link-style update-action" %>
       <%= link_to "戻る", user_path(@user), class: "btn-link-style back-action" %>
