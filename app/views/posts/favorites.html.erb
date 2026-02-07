@@ -1,0 +1,23 @@
+<h2>お気に入り一覧</h2>
+
+<div class="post-grid">
+  <% if @favorite_posts.any? %>
+    <% @favorite_posts.each do |post| %>
+      <div class="post-card">
+
+        <% if post.image.attached? %>
+          <%= image_tag post.image, size: "200x200" %>
+        <% end %>
+
+        <h3><%= post.title %></h3>
+
+        <%= render "favorites/btn", post: post %>
+
+        <%= link_to "詳細を見る", post_path(post) %>
+
+      </div>
+    <% end %>
+  <% else %>
+    <p>お気に入りした投稿はまだありません。</p>
+  <% end %>
+</div>

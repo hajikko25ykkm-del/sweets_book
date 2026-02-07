@@ -50,6 +50,10 @@ class PostsController < ApplicationController
     redirect_to posts_path, notice: "投稿を削除しました。"
   end
 
+  def favorites
+    @favorite_posts = current_user.favorite_posts
+  end
+
   private
 
   def post_params

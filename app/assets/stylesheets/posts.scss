@@ -176,6 +176,12 @@ h1 {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+.recipe-actions {
+  display: flex;           /* 横並びにする */
+  justify-content: flex-end; /* 右端（最後）に寄せる */
+  gap: 15px;               /* ボタンの間の余白 */
+  margin-top: 20px;        /* 上のコンテンツとの距離（お好みで） */
+}
 
 /* 投稿詳細 */
 .recipe-detail-container {

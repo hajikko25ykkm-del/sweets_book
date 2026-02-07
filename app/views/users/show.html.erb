@@ -6,6 +6,7 @@
   <% else %>
     <%= render "relationships/btn", user: @user %>
   <% end %>
+  <p><%= link_to "お気に入り一覧へ", favorites_posts_path, class: "btn" %></p>
 
   <div class="stats">
     <p>フォロー数: <%= link_to @user.followings.count, user_followings_path(@user) %></p>
@@ -25,10 +26,10 @@
           <% if post.image.attached? %>
             <%= image_tag post.image, size: "200x200" %>
           <% end %>
+
+          <%= render "favorites/btn", post: post %>
+
           <h3><%= post.title %></h3>
-
-          <%= render "favorite/btn", post: post %>
-
           <%= link_to "詳細を見る", post_path(post) %>
         </div>
       <% end %>

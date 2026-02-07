@@ -1,5 +1,5 @@
 <section class="post-index">
-  <h2>ショーケース</h2>
+  <h2>投稿一覧</h2>
 
   <div class="post-grid">
     <% @posts.each do |post| %>
@@ -10,7 +10,7 @@
               <%= image_tag post.image %>
             <% end %>
           </div>
-
+          <%= render "favorites/btn", post: post %>
           <div class="post-info">
             <h3 class="post-title"><%= post.title %></h3>
             <p class="post-user">作成者: <%= post.user.name %></p>
