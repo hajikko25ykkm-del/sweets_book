@@ -1,23 +1,27 @@
-<h2>お気に入り一覧</h2>
+<section class="post-index">
+  <h2 class="index-title">お気に入り一覧</h2>
 
-<div class="post-grid">
-  <% if @favorite_posts.any? %>
-    <% @favorite_posts.each do |post| %>
-      <div class="post-card">
+  <hr></hr>
 
-        <% if post.image.attached? %>
-          <%= image_tag post.image, size: "200x200" %>
-        <% end %>
+  <div class="post-grid">
+    <% if @favorite_posts.any? %>
+      <% @favorite_posts.each do |post| %>
+        <div class="post-card">
+          <div class="post-image">
+            <% if post.image.attached? %>
+              <%= image_tag post.image %>
+            <% end %>
+          </div>
 
-        <h3><%= post.title %></h3>
-
-        <%= render "favorites/btn", post: post %>
-
-        <%= link_to "詳細を見る", post_path(post) %>
-
-      </div>
+          <div class="post-info">
+            <h3 class="post-title"><%= post.title %></h3>
+            <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
+            <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>お気に入りした投稿はまだありません。</p>
     <% end %>
-  <% else %>
-    <p>お気に入りした投稿はまだありません。</p>
-  <% end %>
-</div>
+  </div>
+</section>

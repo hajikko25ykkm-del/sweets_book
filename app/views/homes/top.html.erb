@@ -27,9 +27,9 @@
             
             <div class="cta-actions">
               <% if user_signed_in? %>
-                <%= link_to "ノートを書く", new_post_path, class: "btn-main" %>
+                <%= link_to "新しいレシピを書く", new_post_path, class: "btn-main" %>
               <% else %>
-                <%= link_to "新規登録する", new_user_registration_path, class: "btn-signup" %>
+                <%= link_to "新規登録", new_user_registration_path, class: "btn-signup" %> |
                 <%= link_to "ログイン", new_user_session_path, class: "btn-login-link" %>
               <% end %>
             </div>
