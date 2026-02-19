@@ -17,7 +17,6 @@
 <hr>
 
 <section class="user-posts">
-
   <h3>投稿したレシピ</h3>
   <div class="post-grid">
     <% if @posts.any? %>
@@ -27,13 +26,12 @@
             <% if post.image.attached? %>
               <%= image_tag post.image, size: "200x200" %>
             <% end %>
-
+            <div class="post-favorite-btn">
+              <%= render "favorites/btn", post: post %>
+            </div>
             <h3><%= post.title %></h3>
-            <%= link_to "詳細を見る", post_path(post) %>
-          </div>
-
-          <div class="post-favorite-btn">
-            <%= render "favorites/btn", post: post %>
+            <p><%= link_to "コメント (#{post.comments.count})", post_path(post) %></p>
+            <p>投稿日時: <%= post.created_at.strftime("%Y/%m/%d") %></p>
           </div>
         <% end %>
       <% end %>
@@ -41,5 +39,4 @@
       <p>まだ投稿はありません。</p>
     <% end %>
   </div>
-
 </section>

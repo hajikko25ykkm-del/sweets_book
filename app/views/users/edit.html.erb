@@ -2,6 +2,17 @@
   <h2>アカウント情報の編集</h2>
 
   <%= form_with model: @user, local: true do |f| %>
+    <% if @user.errors.any? %>
+      <div class="error-summary">
+        <p class="error-summary__title"><%= @user.errors.count %>件のエラーにより保存できませんでした</p>
+        <ul class="error-summary__list">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
     <div class="field">
       <%= f.label :name, "名前" %>
       <%= f.text_field :name, class: "input-form" %>
@@ -15,10 +26,8 @@
     <div class="field">
       <%= f.label :privacy, "プロフィール公開設定" %>
       <div class="privacy-options">
-        <%= f.radio_button :privacy, false %>
-        <%= f.label :privacy_false, "公開" %>
-        <%= f.radio_button :privacy, true %>
-        <%= f.label :privacy_true, "非公開" %>
+        <%= f.radio_button :privacy, false %><%= f.label :privacy_false, "公開" %>
+        <%= f.radio_button :privacy, true %><%= f.label :privacy_true, "非公開" %>
       </div>
     </div>
 

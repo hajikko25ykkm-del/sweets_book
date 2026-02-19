@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+
   def search
     if params[:keyword].present? # タイトルにキーワードが含まれる投稿を検索（LIKE句,≒あいまい検索）
       @posts = Post.where('title LIKE ?', "%#{params[:keyword]}%")
@@ -8,23 +11,6 @@ class PostsController < ApplicationController
 
     @posts = Post.where("title LIKE ?", "%#{params[:keyword]}%") # 検索処理
     render :index
-  end
-
-  def index
-    if user_signed_in? # ログインしている人には、公開ユーザーと自分がフォローしているユーザーの投稿を表示 
-      @posts = Post.joins(:user).where(
-        "users.privacy = ? OR users.id IN (?) OR users.id = ?", 
-        false, 
-        current_user.following_ids, 
-        current_user.id
-      ).order(created_at: :desc)
-    else               # ログインしていない人には、公開ユーザーの投稿だけ表示
-      @posts = Post.joins(:user).where(users: { privacy: false }).order(created_at: :desc)
-    end
-  end
-
-  def show
-    @post = Post.find(params[:id])
   end
 
   def new
@@ -38,6 +24,23 @@ class PostsController < ApplicationController
       redirect_to post_path(@post)
     else
       render :new
+    end
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def index
+    if user_signed_in? # ログインしている人には、公開ユーザーと自分がフォローしているユーザーの投稿を表示 
+      @posts = Post.joins(:user).where(
+        "users.privacy = ? OR users.id IN (?) OR users.id = ?", 
+        false, 
+        current_user.following_ids, 
+        current_user.id
+      ).order(created_at: :desc)
+    else               # ログインしていない人には、公開ユーザーの投稿だけ表示
+      @posts = Post.joins(:user).where(users: { privacy: false }).order(created_at: :desc)
     end
   end
 
@@ -68,6 +71,13 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body, :image, :genre_id)
+  end
+
+  def ensure_correct_user
+    @post = Post.find(params[:id])
+    if @post.user_id != current_user.id
+      redirect_to posts_path, alert: "他人の投稿を編集・削除することはできません"
+    end
   end
 
 end
