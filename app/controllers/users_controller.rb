@@ -29,12 +29,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    redirect_to root_path, notice: "退会が完了しました", status: :see_other
-  end
-
   def following  # 「フォローしている人」のリスト
     @user  = User.find(params[:id])
     @users = @user.followings

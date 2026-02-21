@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     user_path(resource)
   end
   def after_sign_out_path_for(resource_or_scope)
-    root_path # new_user_registration_path
+    if flash[:notice]&.include?("削除") || flash[:notice]&.include?("退会")
+      new_user_registration_path
+    else
+      root_path
+    end
   end
 end

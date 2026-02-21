@@ -21,7 +21,7 @@
         <% end %>
       </tbody>
     </table>
-    <% elsif @range == "Post" %> <%# else ではなく elsif で明示する %>
+    <% elsif @range == "Post" %>
       <div class="posts-container">
         <% @results.each do |post| %>
           <%= link_to post_path(post), class: "post-card-link" do %>
