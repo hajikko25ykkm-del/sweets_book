@@ -1,14 +1,6 @@
 <section class="post-index">
   <h2 class="index-title">投稿一覧</h2>
 
-  <div class="search-form">
-    <%= form_with url: search_posts_path, method: :get, local: true do |form| %>
-      <%= form.label :keyword, "キーワード検索:" %>
-      <%= form.text_field :keyword, placeholder: "タイトルを入力" %>
-      <%= form.submit "検索" %>
-    <% end %>
-  </div>
-
   <hr></hr>
 
   <div class="post-grid">

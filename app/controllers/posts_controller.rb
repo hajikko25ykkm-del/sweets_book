@@ -3,11 +3,6 @@ class PostsController < ApplicationController
   before_action :ensure_guest_user, only: [:new, :create, :show, :edit, :update, :destroy]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
-  def search
-    @posts = Post.where("title LIKE ?", "%#{params[:keyword]}%")
-    render :index
-  end
-
   def new
     @post = Post.new
   end

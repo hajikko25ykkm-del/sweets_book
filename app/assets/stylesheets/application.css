@@ -37,7 +37,7 @@
     }
   }
 
-  nav ul {
+  .nav-links {
     display: flex;               /* メニューを横に並べる */
     list-style: none;            /* ドット（・）を消す */
     margin: 0;
@@ -56,4 +56,11 @@
       }
     }
   }
+}
+
+.search-container {
+  display: flex;
+  justify-content: flex-end; /* 右寄せにする */
+  margin-top: 10px;
+  width: 100%;
 }

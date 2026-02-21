@@ -1,17 +1,16 @@
 Rails.application.routes.draw do
+  get 'searches/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users
   root to: 'homes#top'
   get 'homes/about', to: 'homes#about', as: 'about'
+  get "search" => "searches#index"
 
   devise_scope :user do
     post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
   end
 
   resources :posts do
-    collection do
-      get :search
-    end
     resource :favorite, only: [:create, :destroy]
     collection do
       get :favorites
