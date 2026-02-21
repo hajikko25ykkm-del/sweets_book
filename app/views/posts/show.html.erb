@@ -52,16 +52,46 @@
 
   <h3>コメント</h3>
   <div id="comments">
-    <% @post.comments.each do |comment| %>
-      <p>
-        <strong><%= comment.user.name %>:</strong>
-        <%= comment.body %>
-        <% if comment.user == current_user %>
-          <%= link_to "削除", post_comment_path(@post, comment), method: :delete %>
-        <% end %>
-      </p>
+    <% @post.comments.where(parent_id: nil).each do |comment| %>
+      <div class="comment-unit" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+        
+        <div class="parent-comment">
+          <strong><%= comment.user.name %>:</strong>
+          <%= comment.body %>
+          
+          <div class="comment-actions" style="font-size: 0.8em;">
+            <a href="#" class="reply-toggle" data-id="<%= comment.id %>">返信</a>
+            
+            <% if comment.user == current_user %>
+              <%= link_to "削除", post_comment_path(@post, comment), method: :delete, data: { confirm: "削除しますか？" } %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="replies-container" style="margin-left: 30px; border-left: 2px solid #f0f0f0; padding-left: 15px;">
+          <% comment.replies.each do |reply| %>
+            <p style="font-size: 0.9em;">
+              <strong><%= reply.user.name %>:</strong> <%= reply.body %>
+            </p>
+          <% end %>
+          
+          <div id="reply-form-<%= comment.id %>" class="reply-form" style="display: none; margin-top: 10px;">
+            <%= form_with(model: [@post, Comment.new], local: true) do |f| %>
+              <%= f.hidden_field :parent_id, value: comment.id %>
+              <%= f.text_area :body, rows: 2, style: "width: 80%;", placeholder: "#{comment.user.name}さんへ返信..." %>
+              <br>
+              <%= f.submit "返信する", style: "font-size: 0.8em;" %>
+              <button type="button" class="cancel-reply" data-id="<%= comment.id %>" style="font-size: 0.8em;">キャンセル</button>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
     <% end %>
   </div>
+
+  <hr class="recipe-divider">
+
   <div id="new_comment">
     <%= form_with(model: [@post, Comment.new], local: true) do |form| %>
       <div class="field">

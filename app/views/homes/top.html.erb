@@ -23,15 +23,18 @@
 
         <section class="top-cta">
           <div class="cta-content">
-            <h3>一緒にお菓子作ってみませんか？</h3>
-            
+            <h5 class="mb-3">一緒にお菓子作ってみませんか？</h5>
             <div class="cta-actions">
               <% if user_signed_in? %>
-                <%= link_to "新しいレシピを書く", new_post_path, class: "btn-main" %>
+                <p class="mt-5">
+                  <%= link_to "新しいレシピを書く", new_post_path %>
+                </p>
               <% else %>
-                <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
-                <p><%= link_to "新規登録", new_user_registration_path, class: "btn-signup" %> |
-                <%= link_to "ログイン", new_user_session_path, class: "btn-login-link" %></p>
+                <p class="mt-5">
+                  <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, method: :post %>
+                </p>
+                <%= link_to "新規登録", new_user_registration_path %> |
+                <%= link_to "ログイン", new_user_session_path %>
               <% end %>
             </div>
           </div>

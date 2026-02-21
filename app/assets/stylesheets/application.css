@@ -15,7 +15,7 @@
  */
 @import "bootstrap";
 
- header {
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,12 +38,19 @@
     }
   }
 
+  .nav-content {
+  display: flex;
+  flex-direction: column; /* 中身（リンクと検索バー）を縦に並べる */
+  align-items: flex-end;   /* 右側に揃える */
+}
+
   .nav-links {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
     gap: 25px;
+    margin-bottom: 10px;
 
     li a {
       text-decoration: none;
@@ -61,7 +68,7 @@
 
 .search-container {
   display: flex;
-  justify-content: flex-end; /* 右寄せにする */
-  margin-top: 10px;
+  justify-content: flex-end; 
+  margin: 20px;
   width: 100%;
 }

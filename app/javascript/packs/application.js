@@ -16,3 +16,20 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.reply-toggle').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = button.dataset.id;
+      document.getElementById(`reply-form-${id}`).style.display = 'block';
+    });
+  });
+
+  document.querySelectorAll('.cancel-reply').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.id;
+      document.getElementById(`reply-form-${id}`).style.display = 'none';
+    });
+  });
+});

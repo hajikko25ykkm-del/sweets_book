@@ -15,12 +15,12 @@
 .book-container {
   width: 90%;
   max-width: 900px;
-  perspective: 1000px; /* 奥行き感を出す */
+  perspective: 1000px;
 }
 
 /* 見開きページのデザイン */
 .book-open {
-  background: #fffef0; /* 少し黄みがかった紙の色 */
+  background: #fffef0;
   display: flex;
   border-radius: 5px 15px 15px 5px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 5px 0 10px rgba(0,0,0,0.1);
@@ -29,7 +29,6 @@
   position: relative;
 }
 
-/* 本の中央の影（溝） */
 .book-open::after {
   content: "";
   position: absolute;
@@ -47,15 +46,15 @@
     display: flex;
     align-items: center; /* 上下中央 */
     justify-content: center; /* 左右中央 */
-    padding: 40px;       /* ページ内の余白 */
+    padding: 40px;
     border-right: 1px solid rgba(0,0,0,0.1); /* 綴じ目の線 */
 
     .book-image-wrapper {
       width: 100%;
-      height: 80%;       /* 少し上下に余白を残す */
-      background: #fff;  /* 写真の台紙のような白 */
+      height: 80%;
+      background: #fff;
       padding: 10px;     /* 写真の周りの白枠 */
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* 写真が浮いて見える影 */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       
       .hero-image {
         width: 100%;
@@ -80,47 +79,44 @@
   h1 {
     font-size: 2.8rem;
     margin-bottom: 20px;
-    margin-top: 0; /* 上の余白を削って一番上へ */
-    font-family: 'serif'; /* セリフ体（明朝系）にすると本っぽさUP */
+    margin-top: 0;
+    font-family: 'serif';
   }
-  
+
   .sub-title {
     font-size: 1rem;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     line-height: 1.8;
   }
 
-  /* 紹介文セクション */
   .community-intro {
-    width: 100%; /* 親のpadding内で幅を確保 */
-    
+    width: 100%;
+
     h2 {
       font-size: 1.2rem;
       margin-bottom: 20px;
-      /* 見出しの下にだけ飾り線を置くならこれ */
       border-bottom: 2px solid #ffb74d;
       display: inline-block;
       padding-bottom: 8px;
     }
 
     p {
-      line-height: 2; /* 行間を広げるとレシピ本っぽくなります */
+      line-height: 2;
       font-size: 0.95rem;
     }
   }
 }
 
 /* aboutページのレイアウト */
-// app/assets/stylesheets/homes.scss
 
 .about-back-cover {
-  background-color: #fcfaf5;      // 温かみのある紙の色
-  border-left: 15px solid #6d4c41; // 本の背表紙（アクセントカラー）
+  background-color: #fcfaf5;
+  border-left: 15px solid #6d4c41;
   padding: 80px 40px;
   max-width: 700px;
   margin: 60px auto;
   box-shadow: 15px 15px 30px rgba(0,0,0,0.05);
-  border-radius: 0 10px 10px 0;   // 右側だけ少し角を丸くして本らしく
+  border-radius: 0 10px 10px 0;
   text-align: center;
 
   h2 {
@@ -134,23 +130,23 @@
     line-height: 2.5;
     color: #4e342e;
     margin-bottom: 50px;
-    font-feature-settings: "palt"; // 文字の間隔を美しく整える
+    font-feature-settings: "palt";
   }
 }
 
 .about-container {
-  position: relative; /* 栞の位置を決める基準になります */
+  position: relative;
   max-width: 700px;
   margin: 0 auto;
 }
 
 .bookmark-link {
   position: absolute;
-  top: -10px;    /* 本の上から少し飛び出させる */
-  right: 40px;   /* 右側に配置 */
+  top: -10px;
+  right: 40px;
   width: 50px;
   height: 80px;
-  background-color: #d32f2f; /* 栞らしい赤色（お好みの色で！） */
+  background-color: #d32f2f;
   color: white !important;
   text-decoration: none;
   font-weight: bold;
@@ -158,12 +154,10 @@
   text-align: center;
   z-index: 10;
   transition: 0.3s;
-
-  /* 栞の下の「ギザギザ」を作る魔法のコード */
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 85%, 0% 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 85%, 0% 100%);  /* 栞の下の「ギザギザ」 */
 
   &:hover {
-    height: 90px; /* ホバーすると少し伸びる演出 */
+    height: 90px;
     background-color: #b71c1c;
     top: 0;
   }
