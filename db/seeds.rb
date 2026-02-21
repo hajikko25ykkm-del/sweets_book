@@ -43,5 +43,5 @@ Post.find_or_create_by!(title: "どら焼き") do |p|
   p.user_id = test_user2.id
 end
 
-puts "投稿のデータ登録が完了しました。"
+puts "テストデータの登録が完了しました。"
 puts "seedの実行が完了しました！"
