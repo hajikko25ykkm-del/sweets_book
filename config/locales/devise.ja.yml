@@ -10,6 +10,7 @@ ja:
       updated: "アカウントが更新されました。"
       destroyed: "アカウントが削除されました。"
     sessions:
+      already_signed_out: "すでにログアウトしています。"
       signed_in: "ログインしました。"
       signed_out: "ログアウトしました。"
       invalid: "メールアドレスまたはパスワードが違います。"
