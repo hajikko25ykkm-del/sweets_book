@@ -1,50 +1,5 @@
-<h1>新規投稿</h1>
+<h1>新しいレシピを投稿</h1>
 
-<%= form_with model: @post do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @post.errors.count %>件のエラーがあります</h2>
+<%= render 'form', post: @post %>
 
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title, "レシピ名" %>
-    <%= f.text_field :title, class: "input-field" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :genre_id, "ジャンル" %><br>
-    <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択してください" } %>
-  </div>
-
-  <div class="field">
-    <%= f.label :image, "画像" %>
-    <%= f.file_field :image, class: "input-field" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :body, "説明" %>
-    <%= f.text_area :body, class: "input-field large-field" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :ingredients, "材料" %>
-    <%= f.text_area :ingredients, class: "input-field large-field" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :process, "作り方" %>
-    <%= f.text_area :process, class: "input-field large-field" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "投稿", class: "btn-submit" %>
-  </div>
-
-<% end %>
+<%= link_to '戻る', posts_path %>

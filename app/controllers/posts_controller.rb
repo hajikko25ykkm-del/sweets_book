@@ -5,8 +5,8 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    3.times { @post.post_ingredients.build }
-    3.times { @post.steps.build }
+    @post.post_ingredients.build
+    @post.steps.build
   end
 
   def create

@@ -1,0 +1,71 @@
+<%= form_with(model: @post, local: true) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @post.errors.count %>件のエラーがあります</h2>
+
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <hr class="recipe-divider">
+
+  <div class="field">
+    <%= f.label :genre_id, "ジャンル" %><br>
+    <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択してください" } %>
+  </div>
+  <hr class="recipe-divider">
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <hr class="recipe-divider">
+
+  <div class="field">
+    <%= f.label :body, "説明" %>
+    <%= f.text_area :body %>
+  </div>
+  <hr class="recipe-divider"> 
+
+  <div id="ingredient-container">
+    <h3>材料</h3>
+    <%= f.fields_for :post_ingredients do |i| %>
+      <div class="ingredient-field mb2">
+        <%= i.text_field :ingredient_name, placeholder: "材料名（例：薄力粉）", class: "ingredient-input" %>
+        <%= i.text_field :quantity, placeholder: "分量（例：100g）" %>
+
+        <%= i.label :is_shopping_list, "🛒" %>
+        <%= i.check_box :is_shopping_list %>
+      </div>
+    <% end %>
+  </div>
+  <button type="button" id="add-ingredient">材料を追加</button>
+  <hr class="recipe-divider">
+
+  <div id = "steps-container">
+    <h3>作り方</h3>
+    <%= f.fields_for :steps do |s| %>
+      <div class="step-field mb-3">
+        <span class="step-number">1</span>
+        <%= s.text_area :content, placeholder: "作り方を入力してください" %>
+        <%= s.file_field :image %>
+        <%= s.hidden_field :position, value: 1, class: "step-position" %>
+      </div>
+    <% end %>
+  </div>
+  <button type="button" id="add-step">工程を追加</button>
+  <hr class="recipe-divider">
+
+  <div class="actions">
+    <%= f.submit "投稿する" %>
+  </div>
+
+<% end %>

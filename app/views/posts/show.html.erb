@@ -37,12 +37,13 @@
   <hr class="recipe-divider">
 
   <div class="recipe-content">
-    <div class="recipe-ingredients">
+    <div class="ingredients-section">
       <h3>材料</h3>
-      <div class="ingredients-box">
+      <div class="ingredients-table">
         <table>
           <thead>
             <tr>
+              <th>リスト</th>
               <th>材料名</th>
               <th>分量</th>
             </tr>
@@ -50,23 +51,37 @@
           <tbody>
             <% @post.post_ingredients.each do |pi| %>
               <tr>
-                <td><%= pi.ingredient_name %></td>
+                <td class="text-center">
+                  <%= check_box_tag "shopping_list_#{pi.id}", 1, pi.is_shopping_list, 
+                  data: { 
+                    remote: true, 
+                    url: update_shopping_list_post_ingredient_path(pi), 
+                    method: :patch 
+                  } %>
+                </td>
+                <td><%= pi.ingredient_name if pi.ingredient %></td> <td><%= pi.ingredient&.name %></td>
                 <td><%= pi.quantity %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
-      </div>
+      </div> 
     </div>
+    <hr class="recipe-divider">
 
-    <div class="steps-process">
+    <div class="steps-section">
       <h3>作り方</h3>
-      <div class="steps-box">
+      <div class="steps-list">
         <% @post.steps.each do |step| %>
           <div class="step-item">
-            <p><%= step.position %>. <%= step.content %></p>
+            <span class="step-number"><%= step.position %>, </span>
+          </div>
+          <div class="step-content">
+            <p><%= step.content %></p>
             <% if step.image.attached? %>
-              <%= image_tag step.image.variant(resize_to_limit: [300, 300]) %>
+              <div class="step-image">
+                <%= image_tag step.image.variant(resize_to_limit: [300, 300]) %>
+              </div>
             <% end %>
           </div>
         <% end %>
