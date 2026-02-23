@@ -1,0 +1,2 @@
+module PostIngredientsHelper
+end

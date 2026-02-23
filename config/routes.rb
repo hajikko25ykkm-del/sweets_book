@@ -18,6 +18,13 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
+  resources :ingredients, only: [:create]
+  resources :post_ingredients, only: [] do
+    member do
+      patch :update_shopping_list
+    end
+  end
+
   resources :users, only: [:show, :edit, :index, :update, :destroy] do
     resource :relationships, only: [:create, :destroy]
 

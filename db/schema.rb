@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_02_23_082142) do
+ActiveRecord::Schema.define(version: 2026_02_23_100719) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -102,6 +102,15 @@ ActiveRecord::Schema.define(version: 2026_02_23_082142) do
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   end
 
+  create_table "steps", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.text "content", limit: 1000, null: false
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_steps_on_post_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.boolean "privacy", default: false, null: false
@@ -125,4 +134,5 @@ ActiveRecord::Schema.define(version: 2026_02_23_082142) do
   add_foreign_key "favorites", "users"
   add_foreign_key "post_ingredients", "ingredients"
   add_foreign_key "post_ingredients", "posts"
+  add_foreign_key "steps", "posts"
 end

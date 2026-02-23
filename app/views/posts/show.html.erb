@@ -39,12 +39,38 @@
   <div class="recipe-content">
     <div class="recipe-ingredients">
       <h3>材料</h3>
-      <div class="ingredients-box"></div>
+      <div class="ingredients-box">
+        <table>
+          <thead>
+            <tr>
+              <th>材料名</th>
+              <th>分量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @post.post_ingredients.each do |pi| %>
+              <tr>
+                <td><%= pi.ingredient_name %></td>
+                <td><%= pi.quantity %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="recipe-process">
+    <div class="steps-process">
       <h3>作り方</h3>
-      <div class="process-box"></div>
+      <div class="steps-box">
+        <% @post.steps.each do |step| %>
+          <div class="step-item">
+            <p><%= step.position %>. <%= step.content %></p>
+            <% if step.image.attached? %>
+              <%= image_tag step.image.variant(resize_to_limit: [300, 300]) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 

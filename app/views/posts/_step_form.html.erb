@@ -1,0 +1,10 @@
+<%= f.fields_for :steps do |step_form| %>
+  <div class="step-field">
+    <span><%= step_form.index + 1 %></span>
+    <%= step_form.hidden_field :position, value: step_form.index + 1 %>
+
+    <%= step_form.text_area :content, placeholder: "何をしますか？" %>
+
+    <%= step_form.file_field :image %>
+  </div>
+<% end %>
