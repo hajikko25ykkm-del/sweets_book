@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.post_ingredients.build
   end
 
   def create
@@ -59,7 +60,9 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :image, :genre_id)
+    params.require(:post).permit(
+      :title, :body, :image, :genre_id,
+      post_ingredients_attributes: [:id, :ingredient_name, :quantity, :is_shopping_list, :_destroy])
   end
   def ensure_correct_user
     @post = Post.find(params[:id])

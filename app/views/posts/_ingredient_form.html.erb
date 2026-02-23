@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>材料名</th>
+      <th>分量</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= f.fields_for :post_ingredients do |pi_form| %>
+      <tr>
+        <td>
+          <%= pi_form.text_field :ingredient_name, placeholder: "材料名" %>
+        </td>
+        <td>
+          <%= pi_form.text_field :quantity, placeholder: "100g" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
