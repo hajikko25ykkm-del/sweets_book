@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 工程追加ボタン（材料とほぼ同じ）
+  // 工程追加ボタン
   const addStepBtn = document.getElementById('add-step');
   if (addStepBtn) {
     addStepBtn.addEventListener('click', () => {
@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const newIndex = fields.length;
       const newField = fields[0].cloneNode(true); // 1つ目をコピー
 
-      // textarea と input の両方を対象にする
       newField.querySelectorAll('textarea, input').forEach(el => {
         el.value = ''; // 入力内容をクリア
         // name属性とid属性の数字を更新 (例: [0] -> [1])
@@ -76,12 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       // 工程番号の更新
-      const stepNum = newField.querySelector('.step-num');
+      const stepNum = newField.querySelector('.step-number');
       if (stepNum) {
         stepNum.textContent = newIndex + 1;
       }
 
-      // position（隠しフィールド）があれば更新
       const positionField = newField.querySelector('.step-position');
       if (positionField) {
         positionField.value = newIndex + 1;
