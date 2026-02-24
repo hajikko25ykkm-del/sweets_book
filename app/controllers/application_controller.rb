@@ -3,6 +3,24 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: [:top, :about] # ログインの確認追い出し
   before_action :configure_permitted_parameters, if: :devise_controller? # Deviseのストロングパラメーターを許可
 
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(Admin)
+      admin_root_path
+    else
+      user_path(resource)
+    end
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope == :admin
+      new_admin_session_path
+    elsif flash[:notice]&.include?("削除") || flash[:notice]&.include?("退会")
+      new_user_registration_path
+    else
+      root_path
+    end
+  end
+
   def ensure_guest_user
     if user_signed_in? && current_user.guest_user?
       reset_session
@@ -17,14 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  def after_sign_in_path_for(resource)
-    user_path(resource)
-  end
-  def after_sign_out_path_for(resource_or_scope)
-    if flash[:notice]&.include?("削除") || flash[:notice]&.include?("退会")
-      new_user_registration_path
-    else
-      root_path
-    end
+  def admin_controller?
+    self.class.module_parent_name == "Admin"
   end
 end
