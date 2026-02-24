@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_02_23_100719) do
+ActiveRecord::Schema.define(version: 2026_02_24_063936) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(version: 2026_02_23_100719) do
 
   create_table "post_ingredients", force: :cascade do |t|
     t.integer "post_id", null: false
-    t.integer "ingredient_id", null: false
+    t.integer "ingredient_id"
     t.string "quantity"
-    t.boolean "is_shopping_list", default: false, null: false
+    t.boolean "is_shopping_list", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ingredient_id"], name: "index_post_ingredients_on_ingredient_id"

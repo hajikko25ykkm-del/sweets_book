@@ -43,9 +43,9 @@
         <table>
           <thead>
             <tr>
-              <th>リスト</th>
-              <th>材料名</th>
-              <th>分量</th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -53,13 +53,9 @@
               <tr>
                 <td class="text-center">
                   <%= check_box_tag "shopping_list_#{pi.id}", 1, pi.is_shopping_list, 
-                  data: { 
-                    remote: true, 
-                    url: update_shopping_list_post_ingredient_path(pi), 
-                    method: :patch 
-                  } %>
+                  data: { remote: true, url: update_shopping_list_post_ingredient_path(pi), method: :patch } %>
                 </td>
-                <td><%= pi.ingredient_name if pi.ingredient %></td> <td><%= pi.ingredient&.name %></td>
+                <td><%= pi.ingredient&.name || "材料名不明" %></td>
                 <td><%= pi.quantity %></td>
               </tr>
             <% end %>

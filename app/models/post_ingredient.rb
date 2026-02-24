@@ -3,14 +3,21 @@ class PostIngredient < ApplicationRecord
   belongs_to :ingredient, optional: true
 
   attr_accessor :ingredient_name
-  before_validation :set_ingredient_from_name
+  before_validation :set_ingredient_by_name
+
+  def ingredient_name
+    @ingredient_name || ingredient&.name
+  end
 
   private
-  def set_ingredient_from_name
+
+  def set_ingredient_by_name
     if ingredient_name.present?
-      found_ingredient = Ingredient.find_or_create_by(name: ingredient_name)
-      self.ingredient = found_ingredient
-      self.ingredient_id = found_ingredient.id
+      self.ingredient = Ingredient.find_or_create_by(name: ingredient_name)
     end
+  end
+
+  def set_ingredient_name_from_db
+    self.ingredient_name ||= ingredient&.name
   end
 end

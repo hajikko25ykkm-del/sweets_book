@@ -29,11 +29,13 @@ end
 
 puts "ユーザーのデータ登録が完了しました。"
 
+#byebug
 Post.find_or_create_by!(title: "マカロン") do |p|
   p.image = ActiveStorage::Blob.create_and_upload!(
     io: File.open(Rails.root.join("app/assets/images/macarons.jpg")), filename: "macarons.jpg" )
   p.genre_id = genres[1].id # 洋菓子
   p.user_id = test_user1.id
+  p.body = "サクサクの生地と甘いクリームが特徴のフランス発祥のスイーツです。"
 end
 
 Post.find_or_create_by!(title: "どら焼き") do |p|
@@ -41,6 +43,7 @@ Post.find_or_create_by!(title: "どら焼き") do |p|
     io: File.open(Rails.root.join("app/assets/images/dorayaki.jpeg")), filename: "dorayaki.jpeg" )
   p.genre_id = genres[0].id # 和菓子
   p.user_id = test_user2.id
+  p.body = "ふわふわのパンケーキ生地で甘いあんこを挟んだ日本の伝統的なスイーツです。"
 end
 
 puts "テストデータの登録が完了しました。"
