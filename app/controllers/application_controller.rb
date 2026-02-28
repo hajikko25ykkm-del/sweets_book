@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_user!, except: [:top, :about] # ログインの確認追い出し
   before_action :configure_permitted_parameters, if: :devise_controller? # Deviseのストロングパラメーターを許可
 
   def after_sign_in_path_for(resource)

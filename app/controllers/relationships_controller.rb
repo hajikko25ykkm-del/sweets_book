@@ -1,4 +1,5 @@
 class RelationshipsController < ApplicationController # フォロー・フォロワー機能のコントローラー
+  before_action :authenticate_user!, except: [:top, :about]
   def create
     user = User.find(params[:user_id])
     current_user.follow(user)
