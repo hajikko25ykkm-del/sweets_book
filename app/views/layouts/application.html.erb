@@ -11,10 +11,18 @@
   </head>
 
   <body>
-    <header>
+    <header class="<%= 'admin-mode' if admin_signed_in? %>">
       <h1><%= link_to "SweetsBook", root_path %></h1>
       <nav>
-        <div class="nav-content"> <% if user_signed_in? %>
+        <div class="nav-content"> 
+          <% if admin_signed_in? %>
+            <ul class="nav-links">
+              <li><%= link_to "ダッシュボード", admin_root_path %></li>
+              <li><%= link_to "ユーザー管理", admin_users_path %></li>
+              <li><%= link_to "投稿管理", admin_posts_path %></li>
+              <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+            </ul>
+          <% elsif user_signed_in? %>
             <ul class="nav-links"> <li><%= link_to "投稿一覧", posts_path %></li>
               <li><%= link_to "マイページ", user_path(current_user.id) %></li>
               <li><%= link_to "投稿フォーム", new_post_path %></li>

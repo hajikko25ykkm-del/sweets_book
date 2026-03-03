@@ -1,0 +1,34 @@
+<section class="post-index">
+  <h2 class="index-title">投稿一覧</h2>
+
+  <div class="post-grid">
+    <% @posts.each do |post| %>
+      <div class="post-item-container" style="position: relative; margin-bottom: 20px;">
+        
+        <%= link_to admin_post_path(post), class: "post-card-link" do %>
+          <div class="post-card">
+            <div class="post-image">
+              <% if post.image.attached? %>
+                <%= image_tag post.image %>
+              <% end %>
+            </div>
+
+            <div class="post-info">
+              <h3 class="post-title"><%= post.title %></h3>
+              <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
+              <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="admin-btn-area" style="text-align: center; margin-top: 8px;">
+          <%= link_to "管理権限で削除", admin_post_path(post), method: :delete, 
+              data: { confirm: '本当にこの投稿を削除しますか？（管理者の操作です）' }, 
+              class: "btn-delete-admin", 
+              style: "color: #d9534f; font-size: 0.85em; text-decoration: none; border: 1px solid #d9534f; padding: 3px 8px; border-radius: 4px;" %>
+        </div>
+        
+      </div>
+    <% end %>
+  </div>
+</section>

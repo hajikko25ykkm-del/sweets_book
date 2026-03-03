@@ -15,6 +15,11 @@
  */
 @import "bootstrap";
 
+header.admin-mode {
+  background-color: #9fdba9 !important;
+  border-bottom: 2px solid #86c091;
+}
+
 header {
   display: flex;
   justify-content: space-between;

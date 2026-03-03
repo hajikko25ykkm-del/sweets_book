@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'dashboards#index'
     get 'dashboards', to: 'dashboards#index'
+    resources :users, only: [:index, :show, :destroy]
+    resources :posts, only: [:index, :show, :destroy]
   end
   devise_scope :user do
     post "users/guest_sign_in", to: "users/sessions#guest_sign_in"

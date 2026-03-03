@@ -1,0 +1,48 @@
+<div class="user-profile-admin" style="background: #fdfdfd; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+  <h1><%= @user.name %> さんの管理詳細</h1>
+  <div class="user-info-meta" style="padding: 10px; border: 1px solid #eee; border-radius: 5px; margin-bottom: 20px;">
+    <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+    <p><strong>ステータス:</strong> フォロー <%= @user.followings.count %> / フォロワー <%= @user.followers.count %></p>
+  </div>
+  <%= link_to 'ユーザー一覧に戻る', admin_users_path,
+   style: "color: #333; background-color: #fff; border: 1px solid #ccc; padding: 5px 15px; border-radius: 4px; text-decoration: none; font-size: 0.9em; display: inline-block;" %>
+</div>
+
+<hr>
+
+<section class="post-index">
+  <h2 class="index-title">投稿一覧</h2>
+
+  <div class="post-grid">
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <div class="post-item-container" style="position: relative;">
+          <%= link_to post_path(post), class: "post-card-link" do %>
+            <div class="post-card">
+              <div class="post-image">
+                <% if post.image.attached? %>
+                  <%= image_tag post.image %>
+                <% end %>
+              </div>
+
+              <div class="post-info">
+                <h3 class="post-title"><%= post.title %></h3>
+                <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
+                <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="admin-actions" style="margin-top: 10px; text-align: center;">
+            <%= link_to "投稿を削除", admin_post_path(post), method: :delete, 
+                data: { confirm: '管理権限でこの投稿を削除しますか？' }, 
+                class: "btn-delete-small", style: "color: #ff4444; font-size: 0.8em; border: 1px solid #ff4444; padding: 2px 5px; border-radius: 3px;" %>
+          </div>
+          
+        </div>
+      <% end %>
+    <% else %>
+      <p>まだ投稿はありません。</p>
+    <% end %>
+  </div>
+</section>

@@ -1,10 +1,14 @@
-class Admin::DashboardsController < ApplicationController
+class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
     @user = User.count
     @post_count = Post.count
     @posts = Post.all.includes(:user).order(created_at: :desc)
+  end
+
+  def show
+    @post = Post.find(params[:id])
   end
 
   def destroy

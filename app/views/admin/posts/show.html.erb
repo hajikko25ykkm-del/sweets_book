@@ -1,0 +1,74 @@
+<div class="admin-post-inspection" style="border-bottom: 4px solid #9fdba9; margin-bottom: 20px; padding-bottom: 10px;">
+  <h1>投稿詳細（管理者モード）</h1>
+  <div class="admin-actions-top" style="display: flex; gap: 10px;">
+    <%= link_to '投稿管理一覧に戻る', admin_posts_path,
+     style: "color: #333; background-color: #fff; border: 1px solid #ccc; padding: 5px 15px; border-radius: 4px; text-decoration: none; font-size: 0.9em; display: inline-block;" %>
+    <%= link_to 'この投稿を削除', admin_post_path(@post),
+     method: :delete, data: { confirm: '本当に削除しますか？' },
+     style: "color: red; border: 1px solid red; padding: 5px 10px; border-radius: 4px; text-decoration: none;" %>
+  </div>
+</div>
+
+<div class="recipe-detail-container">
+  <div class="recipe-main-header">
+    <div class="recipe-image">
+      <%= image_tag @post.image if @post.image.attached? %>
+    </div>
+    
+    <div class="recipe-info">
+      <h1 class="recipe-title"><%= @post.title %></h1>
+  
+      <div class="recipe-comment">
+        <p><span class="label">ひとこと:</span> <%= @post.body %></p>
+      </div>
+
+      <div class="recipe-meta">
+        <p class="recipe-user">投稿者: <%= link_to @post.user.name, admin_user_path(@post.user) %> さん</p>
+        <p class="recipe-date">
+          投稿日: <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="recipe-divider">
+
+  <div class="recipe-content">
+    <div class="ingredients-section">
+      <h3>材料</h3>
+      <div class="ingredients-table">
+        <table>
+          <tbody>
+            <% @post.post_ingredients.each do |pi| %>
+              <tr>
+                <td class="text-center">
+                  <%= check_box_tag "shopping_#{pi.id}", 1, pi.is_shopping_list, disabled: true %>
+                </td>
+                <td><%= pi.ingredient&.name || "材料名不明" %></td>
+                <td><%= pi.quantity %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> 
+    </div>
+
+    <hr class="recipe-divider">
+
+    <div class="steps-section">
+      <h3>作り方</h3>
+      <div class="steps-list">
+        <% @post.steps.each do |step| %>
+          <div class="step-item" style="margin-bottom: 20px;">
+            <p><strong>Step <%= step.position %>:</strong> <%= step.content %></p>
+            <% if step.image.attached? %>
+              <div class="step-image">
+                <%= image_tag step.image.variant(resize_to_limit: [400, 400]) %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

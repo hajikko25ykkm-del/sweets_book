@@ -1,0 +1,35 @@
+<h1 class="admin-title" style="margin-bottom: 20px; text-align: center;">ユーザー登録者管理</h1>
+<div class="post-grid">
+  <% @users.each do |user| %>
+    <div class="post-item-container" style="position: relative;">
+      
+      <%= link_to admin_user_path(user), class: "post-card-link" do %>
+        <div class="post-card" style="min-height: 180px;">
+          <div class="post-info" style="padding: 20px;">
+            <%# ユーザー名の強調 %>
+            <h3 class="post-title" style="color: #333; margin-bottom: 10px;">
+              <%= user.name %> <span style="font-size: 0.7em; color: #888;">(ID: <%= user.id %>)</span>
+            </h3>
+            
+            <p class="post-user" style="font-size: 0.9em;">
+              <strong>Email:</strong><br>
+              <%= user.email %>
+            </p>
+
+            <div class="post-date" style="margin-top: 10px;">
+              登録日: <%= user.created_at.strftime('%Y/%m/%d') %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="admin-btn-area" style="text-align: center; margin-top: 10px;">
+        <%= link_to 'ユーザーを退会させる', admin_user_path(user), method: :delete, 
+            data: { confirm: "#{user.name}さんを退会させますか？" }, 
+            class: "btn-delete-admin",
+            style: "color: #ff4444; font-size: 0.8em; border: 1px solid #ff4444; padding: 4px 10px; border-radius: 4px; text-decoration: none;" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
