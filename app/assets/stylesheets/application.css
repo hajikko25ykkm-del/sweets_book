@@ -103,3 +103,30 @@ h2 {
   font-family: "serif" !important;
   color: #5a4a42 !important;
 }
+
+/* 新規登録画面エラーメッセージ */
+#error_explanation {
+  background-color: #fff5f5;
+  border: 1px dashed #e35d6a;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+
+  h2 {
+    font-size: 0.9rem !important;
+    color: #b02a37;
+    text-align: left !important;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 20px;
+    li {
+      font-size: 0.8rem;
+      color: #b02a37;
+      list-style-type: square;
+    }
+  }
+}

@@ -4,8 +4,11 @@
       <div class="card book-page shadow-sm p-4">
         <h2 class="text-center mb-4">新規登録</h2>
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <div class="error-container">
           <%= render "devise/shared/error_messages", resource: resource %>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <div class="mb-4">
             <%= f.label :名前, class: "form-label fw-bold" %><br />
             <%= f.text_field :name, autofocus: true, class: "form-control custom-input" %>
@@ -17,7 +20,7 @@
           <div class="mb-4">
             <%= f.label :パスワード, class: "form-label fw-bold" %>
             <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <em>(<%= @minimum_password_length %>文字以上)</em>
             <% end %><br />
             <%= f.password_field :password, autocomplete: "new-password", class: "form-control custom-input" %>
           </div>

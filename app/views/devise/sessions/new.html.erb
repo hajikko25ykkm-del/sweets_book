@@ -4,8 +4,15 @@
       <div class="card book-page shadow-sm p-4">
         <h2 class="text-center mb-4">ログイン</h2>
 
+        <div class="error-container">
+          <% if flash[:alert] %>
+            <div class="alert alert-danger p-2 small mb-4">
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
+        </div>
+
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
           <div class="mb-4">
             <%= f.label :メールアドレス, class: "form-label fw-bold" %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control custom-input" %>
@@ -25,9 +32,6 @@
           </div>
         <% end %>
 
-        <div class="text-center mt-4">
-          <%= render "devise/shared/links" %>
-        </div>
       </div>
     </div>
   </div>

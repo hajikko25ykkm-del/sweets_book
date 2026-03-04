@@ -9,8 +9,8 @@
   <p><%= link_to "お気に入り一覧へ", favorites_posts_path, class: "btn" %></p>
 
   <div class="stats">
-    <p>フォロー数: <%= link_to @user.followings.count, user_followings_path(@user) %></p>
-    <p>フォロワー数: <%= link_to @user.followers.count, user_followers_path(@user) %></p>
+    <p>フォロー: <%= link_to @user.followings.count, user_followings_path(@user) %></p>
+    <p>フォロワー: <%= link_to @user.followers.count, user_followers_path(@user) %></p>
   </div>
 </div>
 

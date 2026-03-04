@@ -1,16 +1,26 @@
-<h2>パスワードを忘れましたか？</h2>
+<div class="container">
+  <div class="row vh-100 align-items-center justify-content-center">
+    <div class="col-md-5 col-lg-4">
+      <div class="card book-page shadow-sm p-4">
+      <h2 class="text-center mb-4">再設定メール送信</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :メールアドレス %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <div class="mb-4">
+          <%= f.label :メールアドレス, class: "form-label fw-bold" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control custom-input" %>
+        </div>
+
+        <div class="d-grid mt-4">
+          <%= f.submit "リセットの手順を送信", class: "btn btn-light shadow-sm border" %>
+        </div>
+      <% end %>
+
+      <div class="text-center mt-4">
+        <%= render "devise/shared/links" %>
+      </div>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "パスワードリセットの手順を送信する" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
