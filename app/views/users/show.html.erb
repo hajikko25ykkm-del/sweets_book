@@ -1,16 +1,31 @@
-<div class="user-profile">
-  <h1><%= @user.name %>のページ</h1>
-  
-  <% if @user == current_user %>
-    <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn" %>
-  <% else %>
-    <%= render "relationships/btn", user: @user %>
-  <% end %>
-  <p><%= link_to "お気に入り一覧へ", favorites_posts_path, class: "btn" %></p>
+<div class="user-profile container mt-4">
+  <div class="row align-items-center">
+    
+    <div class="col-md-8">
+      <h1 class="mb-1"><%= @user.name %></h1>
+      
+      <div class="stats d-flex gap-3 mt-2">
+        <p class="mb-0 text-secondary">フォロー: <%= link_to @user.followings.count, user_followings_path(@user), class: "text-decoration-none" %></p>
+        <p class="mb-0 text-secondary">フォロワー: <%= link_to @user.followers.count, user_followers_path(@user), class: "text-decoration-none" %></p>
+      </div>
 
-  <div class="stats">
-    <p>フォロー: <%= link_to @user.followings.count, user_followings_path(@user) %></p>
-    <p>フォロワー: <%= link_to @user.followers.count, user_followers_path(@user) %></p>
+      <% if @user == current_user %>
+        <div class="mt-2">
+          <%= link_to favorites_posts_path, class: "text-decoration-none text-primary fw-bold" do %>
+            <i class="bi bi-heart-fill me-1"></i>お気に入り一覧へ
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+      <% if @user == current_user %>
+        <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-outline-secondary btn-sm" %>
+      <% else %>
+        <%= render "relationships/btn", user: @user %>
+      <% end %>
+    </div>
+
   </div>
 </div>
 

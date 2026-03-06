@@ -12,32 +12,31 @@
   }
 
   .post-grid {
-    display: flex;         /* 横に並べる */
-    flex-wrap: wrap;       /* 折り返す */
-    gap: 25px;             /* カード同士の隙間 */
-    justify-content: center; /* 全体を中央に寄せる（左寄せなら flex-start） */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
   }
 
   .post-card {
-    /* ここが重要！横幅を制限します */
-    width: 250px;          /* 固定幅にするか、20%などで指定 */
+    width: 250px;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 12px;
     padding: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    text-align: center;    /* カード内の文字を中央に */
-    transition: transform 0.3s ease; /* ふわっと動く準備 */
+    text-align: center;
+    transition: transform 0.3s ease;
 
     &:hover {
-      transform: translateY(-5px); /* マウスを乗せると少し浮く */
+      transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     }
 
     img {
-      width: 100%;         /* カードの幅いっぱいに */
-      height: 180px;       /* 高さを固定 */
-      object-fit: cover;   /* 画像を歪ませずに切り抜き */
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
       border-radius: 8px;
       margin-bottom: 15px;
     }

@@ -1,71 +1,81 @@
-<%= form_with(model: @post, local: true) do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @post.errors.count %>件のエラーがあります</h2>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow-sm p-4">
 
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        <%= form_with(model: @post, local: true) do |f| %>
+          <% if @post.errors.any? %>
+            <div id="error_explanation" class="alert alert-danger">
+              <h2 class="h6"><%= @post.errors.count %>件のエラーがあります</h2>
+              <ul class="mb-0 small">
+                <% @post.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%# 画像選択 %>
+          <div class="mb-4">
+            <%= f.label :image, "メイン写真", class: "form-label fw-bold" %>
+            <%= f.file_field :image, class: "form-control" %>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-8">
+              <%= f.label :title, "レシピ名", class: "form-label fw-bold" %>
+              <%= f.text_field :title, class: "form-control", placeholder: "米粉のクッキー！" %>
+            </div>
+            <div class="col-md-4">
+              <%= f.label :genre_id, "ジャンル", class: "form-label fw-bold" %>
+              <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択してください" }, { class: "form-select" } %>
+            </div>
+
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :body, "説明", class: "form-label fw-bold" %>
+            <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "このレシピのポイントは..." %>
+          </div>
+
+          <hr class="my-4">
+
+          <div id="ingredient-container" class="mb-3">
+            <h3 class="h5 mb-3">材料</h3>
+            <%= f.fields_for :post_ingredients do |pi_form| %>
+              <div class="ingredient-field row g-2 mb-2">
+                <div class="col-7">
+                  <%= pi_form.text_field :ingredient_name, class: "form-control form-control-sm", placeholder: "材料名" %>
+                </div>
+                <div class="col-5">
+                  <%= pi_form.text_field :quantity, class: "form-control form-control-sm", placeholder: "分量" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <button type="button" id="add-ingredient" class="btn btn-outline-secondary btn-sm mb-4">＋ 材料を追加</button>
+
+          <div id="step-container" class="mb-3">
+            <h3 class="h5 mb-3">作り方</h3>
+            <%= f.fields_for :steps do |s| %>
+              <div class="step-field card bg-light p-3 mb-3">
+                <div class="d-flex align-items-center mb-2">
+                  <span class="badge bg-dark me-2">1</span>
+                  <%= s.file_field :image, class: "form-control form-control-sm" %>
+                </div>
+                <%= s.text_area :content, class: "form-control", rows: 2, placeholder: "手順を入力" %>
+                <%= s.hidden_field :position, value: 1, class: "step-position" %>
+              </div>
+            <% end %>
+          </div>
+          <button type="button" id="add-step" class="btn btn-outline-secondary btn-sm mb-4">＋ 工程を追加</button>
+
+          <div class="d-grid gap-2 mt-5">
+            <%= f.submit "レシピを投稿する", class: "btn btn-primary btn-lg" %>
+            <%= link_to "キャンセル", posts_path, class: "btn btn-link text-secondary" %>
+          </div>
         <% end %>
-      </ul>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
   </div>
-  <hr class="recipe-divider">
-
-  <div class="field">
-    <%= f.label :genre_id, "ジャンル" %><br>
-    <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択してください" } %>
-  </div>
-  <hr class="recipe-divider">
-
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-  <hr class="recipe-divider">
-
-  <div class="field">
-    <%= f.label :body, "説明" %>
-    <%= f.text_area :body %>
-  </div>
-  <hr class="recipe-divider"> 
-
-  <div id="ingredient-container">
-    <h3>材料</h3>
-    <%= f.fields_for :post_ingredients do |pi_form| %>
-      <div class="ingredient-field mb2">
-        <%= pi_form.text_field :ingredient_name, placeholder: "材料名（例：薄力粉）" %>
-        <%= pi_form.text_field :quantity, placeholder: "分量（例：100g）" %>
-
-        <%= pi_form.label :is_shopping_list, "🛒" %>
-        <%= pi_form.check_box :is_shopping_list %>
-      </div>
-    <% end %>
-  </div>
-  <button type="button" id="add-ingredient">材料を追加</button>
-  <hr class="recipe-divider">
-
-  <div id = "step-container">
-    <h3>作り方</h3>
-    <%= f.fields_for :steps do |s| %>
-      <div class="step-field mb-3">
-        <span class="step-number">1</span>
-        <%= s.text_area :content, placeholder: "作り方を入力してください" %>
-        <%= s.file_field :image %>
-        <%= s.hidden_field :position, value: 1, class: "step-position" %>
-      </div>
-    <% end %>
-  </div>
-  <button type="button" id="add-step">工程を追加</button>
-  <hr class="recipe-divider">
-
-  <div class="actions">
-    <%= f.submit "投稿する" %>
-  </div>
-
-<% end %>
+</div>
