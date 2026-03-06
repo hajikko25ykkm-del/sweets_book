@@ -1,5 +1,15 @@
-<% if post.favorites.exists?(user_id: current_user.id) %>
-  <%= button_to "❤️", post_favorite_path(post), method: :delete %>
-<% else %>
-  <%= button_to "♡", post_favorite_path(post), method: :post %>
+<% if user_signed_in? %>
+  <% if post.favorited_by?(current_user) %>
+    <div class="bookmark-fav active">
+      <%= link_to post_favorite_path(post), method: :delete, remote: true do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bookmark-fav">
+      <%= link_to post_favorite_path(post), method: :post, remote: true do %>
+        <i class="far fa-heart"></i>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

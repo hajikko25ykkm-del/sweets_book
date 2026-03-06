@@ -1,0 +1,23 @@
+<div class="post-card-container">
+  <%= link_to post_path(post), class: "post-card-link" do %>
+    <div class="post-card">
+      <div class="post-image">
+        <% if post.image.attached? %>
+          <%= image_tag post.image %>
+        <% end %>
+      </div>
+
+      <div class="post-info">
+        <h3 class="post-title">
+          <div class="bookmark-fav <%= 'active' if user_signed_in? && post.favorited_by?(current_user) %>">
+            <i class="<%= user_signed_in? && post.favorited_by?(current_user) ? 'fas' : 'far' %> fa-heart"></i>
+          </div>
+          <%= post.title %>
+        </h3>
+        
+        <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
+        <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
+      </div>
+    </div>
+  <% end %>
+</div>

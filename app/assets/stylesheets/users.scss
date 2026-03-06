@@ -1,63 +1,22 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+/* users.scss */
 
 .user-posts {
   padding: 40px 20px;
 
   h3 {
-    text-align: center;
+    text-align: left;
     color: #5d4037;
     margin-bottom: 30px;
+    margin-left: 20px;
   }
 
   .post-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 30px;
     justify-content: center;
-  }
-
-  .post-card {
-    width: 250px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    text-align: center;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
-
-    img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    h3 {
-      font-size: 1.1rem;
-      margin: 10px 0;
-      color: #333;
-    }
-
-    a {
-      display: inline-block;
-      margin-top: 10px;
-      color: #ff9900;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.9rem;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }
