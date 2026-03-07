@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap";
 
 header.admin-mode {
   background-color: #9fdba9 !important;
