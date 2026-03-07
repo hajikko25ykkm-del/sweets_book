@@ -65,3 +65,5 @@ end
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+
+gem "logger", '1.5.0'
