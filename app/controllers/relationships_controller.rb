@@ -1,15 +1,13 @@
-class RelationshipsController < ApplicationController # フォロー・フォロワー機能のコントローラー
-  before_action :authenticate_user!, except: [:top, :about]
+class RelationshipsController < ApplicationController
+  before_action :authenticate_user!
   def create
-    user = User.find(params[:user_id])
-    current_user.follow(user)
-    redirect_to request.referer # request.refererで直前のページにリダイレクト
+    @user = User.find(params[:user_id])
+    current_user.follow(@user)
   end
 
   def destroy
-    user = User.find(params[:user_id])
-    current_user.unfollow(user)
-    redirect_to request.referer
+    @user = User.find(params[:user_id])
+    current_user.unfollow(@user)
   end
 
   def followings # 自分がフォローしている人一覧

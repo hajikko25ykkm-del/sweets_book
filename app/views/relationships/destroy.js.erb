@@ -1,0 +1,2 @@
+// 同じく、ボタンを最新の状態（フォローする）に書き換える
+$('#follow-btn-<%= @user.id %>').html("<%= j(render 'relationships/btn', user: @user) %>");

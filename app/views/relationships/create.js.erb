@@ -1,0 +1,2 @@
+// フォローボタンのエリアだけを、新しいボタン（フォロー外す）に書き換える
+$('#follow-btn-<%= @user.id %>').html("<%= j(render 'relationships/btn', user: @user) %>");
