@@ -135,7 +135,6 @@
 
 
 /* 投稿作成画面のスタイル */
-
 /* 1. 入力画面を中央に配置 */
 .post-form-container {
   max-width: 450px;
@@ -146,7 +145,6 @@
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
-
 .post-form-container h1 {
   text-align: center;
   color: #5d4037;
@@ -161,7 +159,6 @@
   width: 90%;
   max-width: 450px;
 }
-
 h1 {
   text-align: left;
   margin-left: 0;
@@ -169,7 +166,6 @@ h1 {
   margin-bottom: 30px;
   color: #5d4037;
 }
-
 .field label {
   display: block;
   text-align: left;
@@ -177,7 +173,6 @@ h1 {
   margin-bottom: 5px;
   color: #5d4037;
 }
-
 .input-field {
   width: 100%;
   max-width: 500px;
@@ -186,19 +181,16 @@ h1 {
   border-radius: 6px;
   box-sizing: border-box;
 }
-
 .large-field {
   min-height: 120px;
   resize: vertical;
 }
-
 .actions {
   display: flex;
   justify-content: flex-start;
   margin-top: 30px;
   max-width: 400px;
 }
-
 .btn-submit {
   padding: 12px 60px;
   background-color: #ff9900;
@@ -209,12 +201,10 @@ h1 {
   font-weight: bold;
   font-size: 16px;
 }
-
 .btn-submit:hover {
   background-color: #e68a00;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-
 .recipe-actions {
   display: flex;
   justify-content: flex-end;
