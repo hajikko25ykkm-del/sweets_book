@@ -1,0 +1,5 @@
+// 1. コメントリストの最後に、新しいコメントを追加する
+$("#comments-list").append("<%= j(render 'comments/comment', comment: @comment) %>");
+
+// 2. フォームの中身を空にする
+$("textarea").val("");

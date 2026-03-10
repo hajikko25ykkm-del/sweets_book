@@ -1,0 +1,4 @@
+// 「comment-数字」というIDがついた要素を探して消す
+$('#comment-<%= @comment.id %>').fadeOut(500, function(){
+  $(this).remove(); // アニメーションが終わったら完全に削除
+});

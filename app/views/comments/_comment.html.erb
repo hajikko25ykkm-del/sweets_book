@@ -1,0 +1,12 @@
+<div id="comment-<%= comment.id %>" class="comment-unit" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+  <strong><%= comment.user.name %>:</strong>
+  <%= comment.body %>
+  <div class="comment-actions" style="font-size: 0.8em;">
+    <% if comment.user == current_user %>
+      <%= link_to "削除", post_comment_path(comment.post, comment), 
+                  method: :delete, 
+                  remote: true, 
+                  data: { confirm: "削除しますか？" } %>
+    <% end %>
+  </div>
+</div>
