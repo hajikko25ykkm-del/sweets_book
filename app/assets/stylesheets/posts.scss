@@ -2,65 +2,83 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-/* 全体のトーン */
+/* ==========================================================================
+   1. 基本設定
+   ========================================================================== */
 :root {
-  --sweet-brown: #6d4c41; /* 温かみのある茶色 */
+  --sweet-brown: #6d4c41;
   --light-brown: #8d6e63;
-  --bg-cream: #fffaf0;    /* クリーム色の背景（お好みで） */
+  --bg-cream: #fffaf0;
+  --fav-none: #9a9aa6;    /* 未登録 */
+  --fav-active: #67df30;  /* 登録済み */
 }
 
-.post-index {
-  max-width: 1200px;  /* 全体の幅を制限して中央に寄せる */
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.index-title {
-  color: var(--sweet-brown);
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-/* 一覧表示のお気に入りマーク */
+/* ==========================================================================
+   2. 【共通】お気に入り（しおり）
+   ========================================================================== */
 .bookmark-fav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  width: 20px;
-  height: 28px;
-  vertical-align: middle;
-
-  background: #9a9aa6; /*未登録時の色*/
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  
+  position: relative;
+  background: var(--fav-none);
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 85%, 0% 100%);
   transition: all 0.3s ease;
-
-  pointer-events: none;
-}
-
-.bookmark-fav.active {
-  background: #67df30; /*登録時の色*/
+  flex-shrink: 0;
+  cursor: pointer;
+  pointer-events: auto !important; /* クリックを有効化 */
+  z-index: 10;
   border: none;
-  box-shadow: 0 2px 5px rgba(255, 153, 0, 0.3);
+
+  &.active {
+    background: var(--fav-active);
+  }
+
+  a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    color: #ffffff !important; /* 数字を白に固定 */
+  }
+
+  .fav-count {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: -4px; /* しおりの凹みを避けて少し上に */
+    color: #ffffff !important;
+  }
 }
 
-.bookmark-fav i {
-  color: #bbb;
-  font-size: 0.7rem;
-}
-.bookmark-fav.active i {
-  color: #fff;
-}
+/* ==========================================================================
+   3. 投稿一覧ページ（Index）
+   ========================================================================== */
+.post-index {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 
-/* 投稿一覧のグリッド（中央配置） */
-.post-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
+  .index-title {
+    color: var(--sweet-brown);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .post-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  /* 一覧画面のしおりサイズ調整 */
+  .bookmark-fav {
+    width: 22px;
+    height: 30px;
+    .fav-count { font-size: 0.7rem; }
+  }
 }
 
 .post-card-container {
@@ -68,12 +86,6 @@
   min-width: 300px;
   max-width: 350px;
   position: relative;
-}
-
-.post-card-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
 }
 
 .post-card {
@@ -84,58 +96,49 @@
   overflow: hidden;
   height: 100%;
   transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(109, 76, 65, 0.15);
+  }
+
+  .post-image img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .post-info {
+    padding: 15px;
+    color: var(--sweet-brown);
+
+    .post-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      a { color: inherit; text-decoration: none; }
+    }
+    
+    .post-user {
+      font-size: 0.9rem;
+      color: var(--light-brown);
+      span { font-size: 0.7rem; opacity: 0.7; }
+    }
+
+    .post-date {
+      font-size: 0.8rem;
+      text-align: right;
+      color: #a1887f;
+    }
+  }
 }
 
-.post-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 20px rgba(109, 76, 65, 0.15);
-}
-
-.post-image img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-/* テキスト情報（茶色系） */
-.post-info {
-  padding: 15px;
-  color: var(--sweet-brown);
-}
-
-.post-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-align: left;
-  margin: 0;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: var(--sweet-brown);
-}
-
-.post-user {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-  color: var(--light-brown);
-}
-
-.post-user span {
-  font-size: 0.7rem;
-  opacity: 0.7;
-}
-
-.post-date {
-  font-size: 0.8rem;
-  text-align: right;
-  color: #a1887f;
-}
-
-
-/* 投稿作成画面のスタイル */
-/* 1. 入力画面を中央に配置 */
+/* ==========================================================================
+   4. 投稿作成・編集画面（form）
+   ========================================================================== */
 .post-form-container {
   max-width: 450px;
   margin: 40px auto;
@@ -144,55 +147,42 @@
   border: 1px solid #eee;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-.post-form-container h1 {
-  text-align: center;
-  color: #5d4037;
-  margin-bottom: 30px;
+
+  h1 {
+    text-align: center;
+    color: #5d4037;
+    margin-bottom: 30px;
+  }
 }
 
-/* 2. 入力枠の基本スタイル */
 .field {
-  margin-left: 0;
-  margin-right: 0;
   margin-bottom: 25px;
-  width: 90%;
-  max-width: 450px;
-}
-h1 {
-  text-align: left;
-  margin-left: 0;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  color: #5d4037;
-}
-.field label {
-  display: block;
-  text-align: left;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #5d4037;
-}
-.input-field {
   width: 100%;
-  max-width: 500px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-sizing: border-box;
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #5d4037;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .large-field {
+    min-height: 120px;
+    resize: vertical;
+  }
 }
-.large-field {
-  min-height: 120px;
-  resize: vertical;
-}
-.actions {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 30px;
-  max-width: 400px;
-}
+
 .btn-submit {
-  padding: 12px 60px;
+  width: 100%;
+  padding: 12px;
   background-color: #ff9900;
   color: white;
   border: none;
@@ -200,19 +190,17 @@ h1 {
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
-}
-.btn-submit:hover {
-  background-color: #e68a00;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.recipe-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 20px;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #e68a00;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
 }
 
-/* 投稿詳細 */
+/* ==========================================================================
+   5. 投稿詳細ページ（Show）
+   ========================================================================== */
 .recipe-detail-container {
   width: 80%;
   max-width: 1200px;
@@ -222,12 +210,32 @@ h1 {
   border-radius: 15px;
   box-shadow: 0 5px 25px rgba(0,0,0,0.05);
 
+  /* 詳細ページのしおりサイズ */
+  .bookmark-fav {
+    width: 30px;
+    height: 42px;
+  }
+
+  .recipe-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    
+    .recipe-title {
+      font-size: 2.2rem;
+      color: #5d4037;
+      margin: 0 !important;
+      padding-bottom: 5px;
+    }
+  }
+
   .recipe-main-header {
     display: flex;
     gap: 40px;
     margin-bottom: 40px;
     align-items: stretch;
-
     .recipe-image {
       flex: 1;
       img {
@@ -240,27 +248,15 @@ h1 {
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       }
     }
-
     .recipe-info {
       flex: 1.2;
       display: flex;
       flex-direction: column;
-
-      .recipe-title {
-        font-size: 2.2rem;
-        color: #5d4037;
-        margin-top: 0;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #f0e0d6;
-      }
-
       .recipe-comment {
         flex-grow: 1;
         font-size: 1.1rem;
         line-height: 1.8;
         color: #4e342e;
-        
         .label {
           font-weight: bold;
           color: #8d6e63;
@@ -268,132 +264,48 @@ h1 {
           margin-bottom: 8px;
         }
       }
-
-      /* 右下寄せのエリア */
       .recipe-meta {
         text-align: right;
         padding-top: 15px;
         border-top: 1px solid #eee;
-
-        .recipe-user {
-          font-size: 1rem;
-          font-weight: bold;
-          color: #5d4037;
-          margin-bottom: 5px;
-        }
-
-        .recipe-date {
-          font-size: 0.85rem;
-          color: #9e9e9e;
-          margin: 0 0 15px 0; /* 下に余白追加 */
-        }
-
-        .recipe-actions {
-          display: flex;
-          justify-content: flex-end;
-          gap: 12px;
-          flex-wrap: wrap;
-
-          a {
-            text-decoration: none;
-            font-size: 0.85rem;
-            padding: 6px 16px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-          }
-
-          .btn-back {
-            background: #f8f5f0;
-            color: #8d6e63;
-            border: 1px solid #d7ccc8;
-            &:hover { background: #efebe9; }
-          }
-
-          .btn-edit {
-            background: #ff9900;
-            color: #fff;
-            &:hover { background: #e68a00; }
-          }
-
-          .btn-delete {
-            background: #fff;
-            color: #bbb;
-            border: 1px solid #eee;
-            &:hover {
-              color: #ef5350;
-              border-color: #ef5350;
-              background: #fff5f5;
-            }
-          }
-        }
+        .recipe-user { font-weight: bold; color: #5d4037; }
+        .recipe-date { font-size: 0.85rem; color: #9e9e9e; }
       }
     }
   }
+
+  .recipe-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+
+    a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 8px 20px;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+    .btn-back { background: #f8f5f0; color: #8d6e63; border: 1px solid #d7ccc8; }
+    .btn-edit { background: #ff9900; color: #fff; }
+    .btn-delete { border: 1px solid #eee; color: #bbb; &:hover { color: #ef5350; border-color: #ef5350; } }
+  }
 }
 
-/* お気に入りマーク*/
-.recipe-title-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  flex-wrap: nowrap;
-}
-
-.recipe-detail-container .bookmark-fav {
-  pointer-events: auto !important;
-  cursor: pointer;
-  width: 30px;
-  height: 42px;
-  display: flex;
-  position: relative;
-  background: #9a9aa6; /*未登録の色*/
-  border: none;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 85%, 0% 100%);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  flex-shrink: 0;
-}
-
-.recipe-detail-container .bookmark-fav.active {
-  background: #67df30; /*登録済みの色*/
-}
-
-.recipe-detail-container .bookmark-fav a {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #fff !important;
-}
-
-.fav-count {
-  font-size: 0.8rem;
-  font-weight: bold;
-  margin-top: -4px; /* しおりの凹みを避けて少し上にする */
-}
-
-.recipe-detail-container .bookmark-fav i {
-  font-size: 1.1rem;
-}
-
-.recipe-title {
-  margin: 0 !important;
-}
-
-/* スマホ対応：縦並びにする */
+/* ==========================================================================
+   6. スマホ対応（Responsive）
+   ========================================================================== */
 @media (max-width: 800px) {
   .recipe-detail-container {
     width: 95%;
+    padding: 20px;
   }
   .recipe-main-header {
     flex-direction: column;
-    .recipe-image, .recipe-info {
-      width: 100%;
-    }
-    .recipe-image img {
-      max-height: 300px;
-    }
+    .recipe-image img { max-height: 300px; }
+  }
+  .post-card-container {
+    width: 100%;
   }
 }
