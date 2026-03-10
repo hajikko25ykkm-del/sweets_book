@@ -2,13 +2,13 @@
   <% if post.favorited_by?(current_user) %>
     <div class="bookmark-fav active">
       <%= link_to post_favorite_path(post), method: :delete, remote: true do %>
-        <i class="fas fa-heart"></i>
+        <span class="fav-count"><%= post.favorites.count %></span>
       <% end %>
     </div>
   <% else %>
     <div class="bookmark-fav">
       <%= link_to post_favorite_path(post), method: :post, remote: true do %>
-        <i class="far fa-heart"></i>
+        <span class="fav-count"><%= post.favorites.count %></span>
       <% end %>
     </div>
   <% end %>

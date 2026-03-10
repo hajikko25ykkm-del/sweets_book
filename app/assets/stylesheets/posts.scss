@@ -337,6 +337,7 @@ h1 {
   align-items: center;
   gap: 15px;
   margin-bottom: 20px;
+  flex-wrap: nowrap;
 }
 
 .recipe-detail-container .bookmark-fav {
@@ -347,14 +348,14 @@ h1 {
   display: flex;
   position: relative;
   background: #9a9aa6; /*未登録の色*/
-  border: 1px solid #e0e0e0;
+  border: none;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 85%, 0% 100%);
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-shrink: 0;
 }
 
 .recipe-detail-container .bookmark-fav.active {
   background: #67df30; /*登録済みの色*/
-  border: none;
 }
 
 .recipe-detail-container .bookmark-fav a {
@@ -364,7 +365,13 @@ h1 {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: inherit;
+  color: #fff !important;
+}
+
+.fav-count {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: -4px; /* しおりの凹みを避けて少し上にする */
 }
 
 .recipe-detail-container .bookmark-fav i {
@@ -378,7 +385,7 @@ h1 {
 /* スマホ対応：縦並びにする */
 @media (max-width: 800px) {
   .recipe-detail-container {
-    width: 95%; /* スマホでは幅を広げる */
+    width: 95%;
   }
   .recipe-main-header {
     flex-direction: column;
