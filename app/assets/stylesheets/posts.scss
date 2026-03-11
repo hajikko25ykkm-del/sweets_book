@@ -139,63 +139,33 @@
 /* ==========================================================================
    4. 投稿作成・編集画面（form）
    ========================================================================== */
-.post-form-container {
-  max-width: 450px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-
+.post-edit, .post-form-container {
   h1 {
-    text-align: center;
-    color: #5d4037;
-    margin-bottom: 30px;
-  }
-}
-
-.field {
-  margin-bottom: 25px;
-  width: 100%;
-
-  label {
-    display: block;
+    color: var(--sweet-brown);
     font-weight: bold;
-    margin-bottom: 5px;
-    color: #5d4037;
-  }
-
-  .input-field {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-  }
-
-  .large-field {
-    min-height: 120px;
-    resize: vertical;
   }
 }
 
-.btn-submit {
-  width: 100%;
-  padding: 12px;
-  background-color: #ff9900;
-  color: white;
-  border: none;
+.form-label.fw-bold {
+  color: var(--sweet-brown);
+}
+
+.btn-primary.btn-lg {
+  background-color: #ff9900 !important;
+  border: none !important;
   border-radius: 25px;
-  cursor: pointer;
   font-weight: bold;
-  font-size: 16px;
   transition: 0.3s;
 
   &:hover {
-    background-color: #e68a00;
+    background-color: #e68a00 !important;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--light-brown);
+  box-shadow: 0 0 0 0.25rem rgba(141, 110, 99, 0.25);
 }
 
 /* ==========================================================================
