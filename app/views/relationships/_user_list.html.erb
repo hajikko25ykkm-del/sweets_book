@@ -1,10 +1,13 @@
-<div class="user-item" style="display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #f9f9f9;">
+<div class="user-item">
 
-  <div class="user-name" style="font-weight: bold; font-size: 1.1em;">
-    <%= link_to user.name, user_path(user), style: "text-decoration: none; color: #333;" %>
+  <div class="user-name">
+    <%= link_to user.name, user_path(user)%>
     <% if user.privacy %>
-      <span style="font-size: 0.8em; color: #999; margin-left: 5px;">🔒</span>
+      <span class="privacy-icon">🔒</span>
     <% end %>
+    <span class="post-count">
+      投稿: <%= user.posts.count %>件
+    </span>
   </div>
 
   <div class="user-action">

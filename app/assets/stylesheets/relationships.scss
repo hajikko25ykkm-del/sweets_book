@@ -1,3 +1,42 @@
 // Place all the styles related to the relationships controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+/* ユーザー一覧のアイテム枠 */
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #f9f9f9;
+
+  /* ユーザー名エリア */
+  .user-name {
+    font-weight: bold;
+    font-size: 1.1em;
+
+    a {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #ff9900;
+      }
+    }
+
+    .privacy-icon {
+      font-size: 0.8em;
+      color: #999;
+      margin-left: 5px;
+    }
+
+    /* 投稿数のデザイン */
+    .post-count {
+      font-size: 0.85em;
+      color: #777;
+      font-weight: normal;
+      margin-left: 5px;
+    }
+  }
+}
