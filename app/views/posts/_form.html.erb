@@ -69,6 +69,23 @@
           </div>
           <button type="button" id="add-step" class="btn btn-outline-secondary btn-sm mb-4">＋ 工程を追加</button>
 
+          <div class="publish-setting card p-3 mb-4">
+            <h3 class="h6 mb-3">公開設定</h3>
+            <div class="d-flex gap-4 justify-content-center">
+              <div class="form-check">
+                <%= f.radio_button :is_public, true, class: "form-check-input", checked: true %>
+                <%= f.label :is_public_true, "全員に公開", class: "form-check-label mr-3" %>
+              </div>
+              <div class="form-check">
+                <%= f.radio_button :is_public, false, class: "form-check-input" %>
+                <%= f.label :is_public_false, "自分のみ（非公開）", class: "form-check-label" %>
+              </div>
+            </div>
+            <p class="text-muted small text-center mt-3 mb-0">
+              ※非公開にすると、マイページ以外からは見られなくなります。
+            </p>
+          </div>
+
           <div class="d-grid gap-2 mt-5">
             <%= f.submit "レシピを投稿する", class: "btn btn-primary btn-lg" %>
             <%= link_to "キャンセル", posts_path, class: "btn btn-link text-secondary" %>

@@ -17,12 +17,10 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-// ...省略（importなどはそのまま）
+document.addEventListener('turbolinks:load', () => {
+  console.log("Turbolinks load: JS ready!");
 
-document.addEventListener('turbolinks:load', () => { // ここを書き換え！
-  console.log("Turbolinks load: JS ready!"); // 確認用ログ
-
-  // 返信ボタンの制御
+  // --- 1. 返信ボタンの制御 ---
   document.querySelectorAll('.reply-toggle').forEach(button => {
     button.addEventListener('click', (e) => {
       e.preventDefault();
@@ -40,49 +38,65 @@ document.addEventListener('turbolinks:load', () => { // ここを書き換え！
     });
   });
 
-  // 材料追加ボタン
-  const addIngredientBtn = document.getElementById('add-ingredient');
+  // --- 2. 材料追加ボタン ---
+const addIngredientBtn = document.getElementById('add-ingredient');
   if (addIngredientBtn) {
-    addIngredientBtn.addEventListener('click', () => {
+    // 二重登録防止のためにクローンと差し替え
+    addIngredientBtn.replaceWith(addIngredientBtn.cloneNode(true));
+    const newBtn = document.getElementById('add-ingredient');
+
+    newBtn.addEventListener('click', () => {
       const container = document.getElementById('ingredient-container');
       const fields = container.getElementsByClassName('ingredient-field');
-      const newIndex = fields.length;
-      const newField = fields[0].cloneNode(true);
       
-      newField.querySelectorAll('input').forEach(input => {
-        input.value = '';
-        input.name = input.name.replace(/\[\d+\]/, `[${newIndex}]`);
-        input.id = input.id.replace(/_\d+_/, `_${newIndex}_`);
-      });
-      container.appendChild(newField);
+      if (fields.length > 0) {
+        const newIndex = fields.length;
+        const newField = fields[0].cloneNode(true);
+        
+        newField.querySelectorAll('input').forEach(input => {
+          input.value = '';
+          input.name = input.name.replace(/\[\d+\]/, `[${newIndex}]`);
+          input.id = input.id.replace(/_\d+_/, `_${newIndex}_`);
+        });
+        container.appendChild(newField);
+      } else {
+        console.warn("コピー元の材料フィールドが見つかりません。");
+      }
     });
   }
 
-  // 工程追加ボタン
+  // --- 3. 工程追加ボタン ---
   const addStepBtn = document.getElementById('add-step');
   if (addStepBtn) {
-    addStepBtn.addEventListener('click', () => {
+    // こちらも念のため二重登録防止
+    addStepBtn.replaceWith(addStepBtn.cloneNode(true));
+    const newStepBtn = document.getElementById('add-step');
+
+    newStepBtn.addEventListener('click', () => {
       const container = document.getElementById('step-container');
       const fields = container.getElementsByClassName('step-field');
-      if (fields.length === 0) return;
+      
+      if (fields.length > 0) {
+        const newIndex = fields.length;
+        const newField = fields[0].cloneNode(true);
 
-      const newIndex = fields.length;
-      const newField = fields[0].cloneNode(true);
+        newField.querySelectorAll('textarea, input').forEach(el => {
+          el.value = '';
+          el.name = el.name.replace(/\[\d+\]/, `[${newIndex}]`);
+          el.id = el.id.replace(/_\d+_/, `_${newIndex}_`);
+        });
 
-      newField.querySelectorAll('textarea, input').forEach(el => {
-        el.value = '';
-        el.name = el.name.replace(/\[\d+\]/, `[${newIndex}]`);
-        el.id = el.id.replace(/_\d+_/, `_${newIndex}_`);
-      });
+        // 工程番号のバッジ更新
+        const badge = newField.querySelector('.badge');
+        if (badge) badge.textContent = newIndex + 1;
 
-      // 工程番号のバッジ更新 (HTML側のクラス名に合わせる)
-      const badge = newField.querySelector('.badge');
-      if (badge) badge.textContent = newIndex + 1;
+        const positionField = newField.querySelector('.step-position');
+        if (positionField) positionField.value = newIndex + 1;
 
-      const positionField = newField.querySelector('.step-position');
-      if (positionField) positionField.value = newIndex + 1;
-
-      container.appendChild(newField);
+        container.appendChild(newField);
+      } else {
+        console.warn("コピー元の工程フィールドが見つかりません。");
+      }
     });
   }
 });

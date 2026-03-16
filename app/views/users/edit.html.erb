@@ -1,69 +1,75 @@
-<div class="post-form-container">
-  <div class="mb-3">
-    <%= link_to user_path(@user), class: "text-decoration-none text-secondary" do %>
-      <i class="bi bi-arrow-left"></i> プロフィールへ戻る
-    <% end %>
-  </div>
-
-  <h2>アカウント情報の編集</h2>
-
-  <%= form_with model: @user, local: true do |f| %>
-    <% if @user.errors.any? %>
-      <div class="error-summary">
-        <p class="error-summary__title"><%= @user.errors.count %>件のエラーにより保存できませんでした</p>
-        <ul class="error-summary__list">
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+<div class="container mt-5"> 
+  <div class="row justify-content-center"> 
+    <div class="col-md-6 col-lg-5"> 
+      <div class="post-form-container bg-white p-4 shadow-sm rounded">
+        <div class="mb-3">
+          <%= link_to user_path(@user), class: "text-decoration-none text-secondary" do %>
+            <i class="bi bi-arrow-left"></i> プロフィールへ戻る
           <% end %>
-        </ul>
+        </div>
+
+        <h2>アカウント情報の編集</h2>
+
+        <%= form_with model: @user, local: true do |f| %>
+          <% if @user.errors.any? %>
+            <div class="error-summary">
+              <p class="error-summary__title"><%= @user.errors.count %>件のエラーにより保存できませんでした</p>
+              <ul class="error-summary__list">
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          
+          <div class="field mb-3">
+            <%= f.label :name, "名前", class: "form-label fw-bold" %>
+            <%= f.text_field :name, class: "form-control shadow-sm" %>
+          </div>
+
+          <div class="field mb-3">
+            <%= f.label :email, "メールアドレス", class: "form-label fw-bold" %>
+            <%= f.email_field :email, class: "form-control shadow-sm" %>
+          </div>
+
+          <div class="field mb-3">
+            <%= f.label :privacy, "アカウント公開設定" %>
+            <div class="privacy-options">
+              <%= f.radio_button :privacy, false %><%= f.label :privacy, "公開", value: false %>
+              <%= f.radio_button :privacy, true %><%= f.label :privacy, "非公開", value: true %>
+            </div>
+          </div>
+
+          <% unless @user.guest_user? %>
+            <div class="mt-4">
+              <%= f.submit "プロフィールを更新する", class: "btn btn-dark w-100 shadow-sm" %>
+            </div>
+          <% else %>
+            <div class="alert alert-warning mt-3 small">
+              ゲストユーザーはプロフィールを編集できません。
+            </div>
+          <% end %>
+        <% end %>
+
+        <hr class="my-5">
+
+        <div class="account-deletion-section mt-5 p-3 border border-danger rounded shadow-sm bg-light">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <h5 class="text-danger mb-1 fw-bold">アカウントの削除</h5>
+              <p class="text-muted small mb-0">一度退会すると、これまでの投稿やデータはすべて削除され、復元できません。</p>
+            </div>
+            
+            <div>
+              <%= button_to "退会する", user_registration_path, 
+                  method: :delete, 
+                  class: "btn btn-outline-danger btn-sm", 
+                  data: { confirm: '本当に退会しますか？' } %>
+            </div>
+          </div>
+        </div>
+
       </div>
-    <% end %>
-    
-    <div class="field mb-3">
-      <%= f.label :name, "名前", class: "form-label fw-bold" %>
-      <%= f.text_field :name, class: "form-control shadow-sm" %>
-    </div>
-
-    <div class="field mb-3">
-      <%= f.label :email, "メールアドレス", class: "form-label fw-bold" %>
-      <%= f.email_field :email, class: "form-control shadow-sm" %>
-    </div>
-
-    <div class="field mb-3">
-      <%= f.label :privacy, "プロフィール公開設定" %>
-      <div class="privacy-options">
-        <%= f.radio_button :privacy, false %><%= f.label :privacy, "公開", value: false %>
-        <%= f.radio_button :privacy, true %><%= f.label :privacy, "非公開", value: true %>
-      </div>
-    </div>
-
-    <% unless @user.guest_user? %>
-      <div class="mt-4">
-        <%= f.submit "プロフィールを更新する", class: "btn btn-dark w-100 shadow-sm" %>
-      </div>
-    <% else %>
-      <div class="alert alert-warning mt-3 small">
-        ゲストユーザーはプロフィールを編集できません。
-      </div>
-    <% end %>
-  <% end %>
-
-  <hr class="my-5">
-
-<div class="account-deletion-section mt-5 p-3 border border-danger rounded shadow-sm bg-light">
-  <div class="d-flex align-items-center justify-content-between">
-    <div>
-      <h5 class="text-danger mb-1 fw-bold">アカウントの削除</h5>
-      <p class="text-muted small mb-0">一度退会すると、これまでの投稿やデータはすべて削除され、復元できません。</p>
-    </div>
-    
-    <div>
-      <%= button_to "退会する", user_registration_path, 
-          method: :delete, 
-          class: "btn btn-outline-danger btn-sm", 
-          data: { confirm: '本当に退会しますか？' } %>
     </div>
   </div>
-</div>
-
 </div>

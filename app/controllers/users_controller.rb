@@ -5,11 +5,17 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
     if @user.privacy && !current_user.following?(@user) && @user != current_user
       redirect_to posts_path, alert: "このユーザーのプロフィールは非公開です。"
       return
     end
-    @posts = @user.posts.order(created_at: :desc)
+
+    if @user == current_user
+      @posts = @user.posts.order(created_at: :desc)
+    else
+      @posts = @user.posts.where(is_public: true).order(created_at: :desc)
+    end
   end
 
   def show_mypage
