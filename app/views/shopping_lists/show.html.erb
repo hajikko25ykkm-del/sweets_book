@@ -1,48 +1,52 @@
-<section class="shopping-list-section py-5">
+<section class="py-5 bg-light" style="min-height: 100vh;">
   <div class="container">
-    <h2 class="mb-4">買い物リスト</h2>
+    <h2 class="text-center mb-5" style="color: #8d6e63;">📔 買い物リスト</h2>
 
-    <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">メモ</h5>
-        <%= form_with model: @shopping_list, url: shopping_list_path, method: :patch, local: true do |f| %>
-          <%= f.text_area :content, class: "form-control", rows: 3, placeholder: "ラッピング包材など..." %>
-          <div class="text-end mt-2">
-            <%= f.submit "メモを保存", class: "btn btn-sm btn-outline-secondary" %>
+    <hr>
+
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="memo-notebook">
+          <h5 class="fw-bold mb-3">メモ</h5>
+          <%= form_with model: @shopping_list, url: shopping_list_path, method: :patch, local: true do |f| %>
+            <%= f.text_area :content, class: "form-control border-0 bg-transparent", rows: 10, placeholder: "ラッピングや保冷剤など..." %>
+            <div class="text-end mt-3">
+              <%= f.submit "ノートに保存", class: "btn btn-sm btn-dark" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <% if @items_by_post.any? %>
+          <div class="row">
+            <% @items_by_post.each do |post, items| %>
+              <div class="col-sm-6">
+                <div class="sticky-note">
+                  <div class="sticky-note-title">
+                    <%= link_to post.title, post_path(post), class: "text-decoration-none text-dark" %>
+                  </div>
+                  <ul class="list-unstyled mb-0">
+                    <% items.each do |item| %>
+                      <li class="mb-2 d-flex align-items-center">
+                        <%= check_box_tag "item_#{item.id}", 1, item.is_bought, 
+                              class: "form-check-input me-2",
+                              data: { url: update_item_status_shopping_list_path(item), method: :patch, remote: true } %>
+                        <span class="small"><%= item.post_ingredient&.ingredient_name %></span>
+                        <small class="text-muted ms-1">(<%= item.post_ingredient&.quantity %>)</small>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-5">
+            <p class="text-muted">付箋はまだありません。レシピから追加しましょう！</p>
           </div>
         <% end %>
       </div>
-    </div>
-
-    <% if @items_by_post.any? %>
-      <% @items_by_post.each do |post, items| %>
-        <div class="card mb-3 border-primary shadow-sm">
-          <div class="card-header bg-primary text-white">
-            <strong><%= post.title %></strong>
-          </div>
-          <ul class="list-group list-group-flush">
-            <% items.each do |item| %>
-              <li id="shopping-item-mult-<%= item.id %>" class="list-group-item d-flex justify-content-between align-items-center">
-                <div>
-                  <%= link_to destroy_item_shopping_list_path(item), method: :delete, remote: true, class: "form-check-input-link" do %>
-                    <input type="checkbox" class="form-check-input me-2">
-                  <% end %>
-                  <span><%= item.post_ingredient&.ingredient_name %></span>
-                </div>
-                <%= link_to "削除", destroy_item_shopping_list_path(item), method: :delete, remote: true, class: "text-danger small" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-    <% else %>
-      <div class="text-center py-5 border rounded bg-light">
-        <p class="text-muted mb-0">リストに材料はありません。レシピ詳細から追加しましょう！</p>
-      </div>
-    <% end %>
-
-    <div class="mt-4">
-      <%= link_to "投稿一覧へ戻る", posts_path, class: "btn btn-secondary w-100" %>
     </div>
   </div>
 </section>

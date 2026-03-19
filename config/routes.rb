@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   resource :shopping_list, only: [:show, :update] do
     post 'add_item/:post_ingredient_id', to: 'shopping_lists#add_item', as: 'add_item'
+    patch 'update_item_status/:id', to: 'shopping_lists#update_item_status', as: 'update_item_status'
     delete 'destroy_item/:id', to: 'shopping_lists#destroy_item', as: 'destroy_item', defaults: { format: 'js' }
   end
 

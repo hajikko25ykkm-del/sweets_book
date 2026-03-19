@@ -3,12 +3,13 @@ class ShoppingListsController < ApplicationController
 
   def show
     @shopping_list = current_user.shopping_list || current_user.create_shopping_list
+    @shopping_list.shopping_list_items.where(is_bought: true).destroy_all
     all_items = @shopping_list.shopping_list_items.includes(post_ingredient: :post)
     @items_by_post = all_items.select { |item| item.post_ingredient&.post }.group_by { |item| item.post_ingredient.post }
   end
 
   def add_item
-    @shopping_list = crrent_user.shopping_list || current_user.create_shopping_list
+    @shopping_list = current_user.shopping_list || current_user.create_shopping_list
     @item = @shopping_list.shopping_list_items.find_or_initialize_by(post_ingredient_id: params[:post_ingredient_id])
 
     if @item.save
@@ -27,11 +28,18 @@ class ShoppingListsController < ApplicationController
     end
   end
 
+  def update_item_status
+    @item = ShoppingListItem.find(params[:id])
+    @item.update(is_bought: !@item.is_bought)
+  end
+
   def destroy_item
-    @item = current_user.shopping_list.shopping_list_items.find(params[:id])
+    @item = ShoppingListItem.find(params[:id])
     @item.destroy
+    
     respond_to do |format|
-      format.js
+      format.js # destroy_item.js.erb を実行
+      format.html { redirect_to shopping_list_path }
     end
   end
 
