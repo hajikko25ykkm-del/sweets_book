@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_03_16_143108) do
+ActiveRecord::Schema.define(version: 2026_03_19_084834) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -114,6 +114,24 @@ ActiveRecord::Schema.define(version: 2026_03_16_143108) do
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   end
 
+  create_table "shopping_list_items", force: :cascade do |t|
+    t.integer "shopping_list_id", null: false
+    t.integer "post_ingredient_id", null: false
+    t.boolean "is_bought", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_ingredient_id"], name: "index_shopping_list_items_on_post_ingredient_id"
+    t.index ["shopping_list_id"], name: "index_shopping_list_items_on_shopping_list_id"
+  end
+
+  create_table "shopping_lists", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_shopping_lists_on_user_id"
+  end
+
   create_table "steps", force: :cascade do |t|
     t.integer "post_id", null: false
     t.text "content", limit: 1000, null: false
@@ -146,5 +164,8 @@ ActiveRecord::Schema.define(version: 2026_03_16_143108) do
   add_foreign_key "favorites", "users"
   add_foreign_key "post_ingredients", "ingredients"
   add_foreign_key "post_ingredients", "posts"
+  add_foreign_key "shopping_list_items", "post_ingredients"
+  add_foreign_key "shopping_list_items", "shopping_lists"
+  add_foreign_key "shopping_lists", "users"
   add_foreign_key "steps", "posts"
 end
