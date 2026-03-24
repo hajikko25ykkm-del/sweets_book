@@ -49,4 +49,6 @@ Rails.application.routes.draw do
     delete 'destroy_item/:id', to: 'shopping_lists#destroy_item', as: 'destroy_item', defaults: { format: 'js' }
   end
 
+  resources :shopping_list_items, only: [:destroy]
+
 end

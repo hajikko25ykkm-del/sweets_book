@@ -1,4 +1,4 @@
-<div class="recipe-detail-container">
+<div class="recipe-detail-container container py-4">
   
   <div class="recipe-main-header">
     <div class="recipe-image">
@@ -14,7 +14,7 @@
       </div>
   
       <div class="recipe-comment">
-        <p><span class="label">ひとこと:</span> <%= @post.body %></p>
+        <p><span class="label">ひとこと:</span> <%= simple_format(@post.body) %></p>
       </div>
 
       <div class="recipe-meta">
@@ -22,91 +22,93 @@
         <p class="recipe-date">
           投稿日: <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
         </p>
+        <div class="recipe-actions">
+          <%= link_to '一覧に戻る', posts_path, class: "btn-back" %>
+          
+          <% if @post.user == current_user %>
+            <%= link_to '編集する', edit_post_path(@post),class: "btn-edit" %>
+            <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn-delete" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="recipe-actions">
-    <%= link_to '一覧に戻る', posts_path %>
-    
-    <% if @post.user == current_user %>
-      <%= link_to '編集する', edit_post_path(@post) %>
-      <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-    <% end %>
-  </div>
 
   <hr class="recipe-divider">
 
-  <div class="recipe-content">
-    <div class="ingredients-section">
-      <h3>材料</h3>
-      <div class="ingredients-table">
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @post.post_ingredients.each do |pi| %>
-              <tr>
-                <td class="text-center">
-                  <%= check_box_tag "shopping_list_#{pi.id}", 1, pi.is_shopping_list, 
-                  data: { remote: true, url: update_shopping_list_post_ingredient_path(pi), method: :patch } %>
-                </td>
-                <td><%= pi.ingredient&.name || "材料名不明" %></td>
-                <td><%= pi.quantity %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div> 
+  <div class="row mt-4">
+    
+    <div class="col-md-4 mb-4">
+      <div class="loose-leaf">
+        <div class="loose-leaf-header">
+          <h3 class="mb-0">材料</h3>
+        </div>
+        <div class="loose-leaf-body">
+          <table class="table table-borderless align-middle mb-0">
+            <tbody>
+              <% @post.post_ingredients.each do |pi| %>
+                <% if pi.ingredient.present? || pi.quantity.present? %>
+                  <tr class="note-line">
+                    <td class="text-center" id="ingredient-check-<%= pi.id %>" style="width: 45px;">
+                      <%= render 'shopping_lists/check_button', pi: pi %>
+                    </td>
+                    <td><%= pi.ingredient&.name || "材料名不明" %></td>
+                    <td class="text-end text-muted small pe-3"><%= pi.quantity %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    <hr class="recipe-divider">
 
-    <div class="steps-section">
-      <h3>作り方</h3>
+    <div class="col-md-8">
+      <h3 class="section-title mb-4">作り方</h3>
       <div class="steps-list">
-        <% @post.steps.each do |step| %>
-          <div class="step-item">
-            <span class="step-number"><%= step.position %>, </span>
-          </div>
-          <div class="step-content">
-            <p><%= step.content %></p>
-            <% if step.image.attached? %>
-              <div class="step-image">
-                <%= image_tag step.image.variant(resize_to_limit: [300, 300]) %>
+        <% @post.steps.each.with_index(1) do |step, index| %>
+          <% if step.content.present? %>
+            <div class="step-card mb-4">
+              <div class="row g-0 align-items-center">
+                <div class="col-sm-7 p-3">
+                  <div class="d-flex align-items-start">
+                    <span class="step-number-text fw-bold me-2"><%= index %>.</span>
+                    <p class="step-text mb-0"><%= simple_format(step.content) %></p>
+                  </div>
+                </div>
+                <div class="col-sm-5 p-2">
+                  <% if step.image.attached? %>
+                    <div class="step-image-box">
+                      <%= image_tag step.image.variant(resize_to_limit: [400, 400]), class: "img-fluid rounded" %>
+                    </div>
+                  <% end %>
+                </div>
               </div>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
+
+      <hr class="recipe-divider my-5">
+      <div class="comment-section">
+        <h3>コメント</h3>
+        <div id="comments-list" class="mb-4">
+          <%= render @post.comments %>
+        </div>
+        <div id="new_comment" class="bg-light p-3 rounded">
+          <%= form_with(model: [@post, Comment.new], local: false) do |f| %>
+            <div class="mb-3">
+              <%= f.label :body, "コメントを追加:", class: "form-label fw-bold" %>
+              <%= f.text_area :body, rows: 2, class: "form-control" %>
+            </div>
+            <div class="text-end">
+              <%= f.submit "コメントする", class: "btn btn-primary btn-sm" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
+
   </div>
-
-  <hr class="recipe-divider">
-
-  <h3>コメント</h3>
-  <div id="comments-list">
-    <%= render @post.comments %>
-  </div>
-
-  <hr class="recipe-divider">
-
-  <div id="new_comment">
-    <%= form_with(model: [@post, Comment.new], local: false) do |f| %>
-      <div class="field">
-        <%= f.label :body, "コメントを追加:" %><br>
-        <%= f.text_area :body, rows: 2 %>
-      </div>
-      <div class="actions">
-        <%= f.submit "コメントする" %>
-      </div>
-    <% end %>
-  </div>
-
-  <hr class="recipe-divider">
-  
 </div>

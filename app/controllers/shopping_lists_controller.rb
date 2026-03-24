@@ -10,13 +10,10 @@ class ShoppingListsController < ApplicationController
 
   def add_item
     @shopping_list = current_user.shopping_list || current_user.create_shopping_list
-    @item = @shopping_list.shopping_list_items.find_or_initialize_by(post_ingredient_id: params[:post_ingredient_id])
+    @pi = PostIngredient.find(params[:post_ingredient_id])
+    @item = @shopping_list.shopping_list_items.find_or_initialize_by(post_ingredient_id: @pi.id)
 
-    if @item.save
-      redirect_back(fallback_location: root_path, notice: "材料をリストに追加しました！")
-    else
-      redirect_back(fallback_location: root_path, alert: "追加に失敗しました。")
-    end
+    @item.save
   end
 
   def update

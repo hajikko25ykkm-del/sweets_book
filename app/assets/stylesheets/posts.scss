@@ -180,7 +180,7 @@
   border-radius: 15px;
   box-shadow: 0 5px 25px rgba(0,0,0,0.05);
 
-  /* 詳細ページのしおりサイズ */
+  /* お気に入りのしおりサイズ */
   .bookmark-fav {
     width: 30px;
     height: 42px;
@@ -227,7 +227,7 @@
 
       .recipe-comment {
         flex-grow: 1;
-        font-size: 1.1rem;
+        font-size: 1rem;
         line-height: 1.8;
         color: #4e342e;
         .label {
@@ -276,10 +276,95 @@
       border-radius: 20px;
       transition: 0.3s;
     }
-    .btn-back { background: #f8f5f0; color: #8d6e63; border: 1px solid #d7ccc8; }
-    .btn-edit { background: #ff9900; color: #fff; }
-    .btn-delete { border: 1px solid #eee; color: #bbb; &:hover { color: #ef5350; border-color: #ef5350; } }
+    .btn-back { background: #f8f5f0; color: #857046; border: 1px solid #d7ccc8; }
+    .btn-edit { background: #ff9900; color: #ffffff }
+    .btn-delete { border: 1px solid #eee; color: #848484; &:hover { color: #ef5350; border-color: #ef5350; } }
   }
+}
+
+/* 投稿詳細--材料-- */
+.loose-leaf {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.05);
+  position: relative;
+  padding-left: 30px;
+  min-height: 400px;
+}
+.loose-leaf::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 10px;
+  width: 12px; height: 100%;
+  background-image: radial-gradient(circle, #eee 5px, transparent 6px);
+  background-size: 100% 30px;
+}
+.loose-leaf-header {
+  border-bottom: 2px solid #ffcc80;
+  padding: 15px 10px;
+  color: #fb8c00;
+  font-family: 'Courier New', Courier, monospace;
+}
+.note-line {
+  border-bottom: 1px solid #e0f2f1 !important;
+  height: 45px;
+}
+
+/* 作り方の番号 */
+.step-number-text {
+  font-size: 1.1rem;
+  color: #333;
+  min-width: 25px;
+  display: inline-block;
+}
+.step-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+.step-card {
+  border-color: #eee !important;
+}
+.step-image-box img {
+  max-height: 200px;
+  object-fit: cover;
+}
+
+
+/* 材料チェックボタン */
+.fake-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #adb5bd;
+  border-radius: 3px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.1s;
+}
+
+.fake-checkbox.checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.check-mark {
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  transform: rotate(45deg) scaleX(-1);
+  display: block;
+  line-height: 1;
+  margin-top: -2px;
+}
+
+.check-link {
+  text-decoration: none !important;
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 /* ==========================================================================

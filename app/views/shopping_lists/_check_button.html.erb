@@ -1,0 +1,15 @@
+<% item = current_user.shopping_list&.shopping_list_items&.find_by(post_ingredient_id: pi.id) %>
+
+<div class="custom-shopping-check">
+  <% if item %>
+    <%= link_to shopping_list_item_path(item), method: :delete, remote: true, class: "check-link" do %>
+      <div class="fake-checkbox checked">
+        <span class="check-mark">L</span>
+      </div>
+    <% end %>
+  <% else %>
+    <%= link_to add_item_shopping_list_path(post_ingredient_id: pi.id), method: :post, remote: true, class: "check-link" do %>
+      <div class="fake-checkbox"></div>
+    <% end %>
+  <% end %>
+</div>

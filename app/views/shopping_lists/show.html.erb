@@ -9,7 +9,7 @@
         <div class="memo-notebook">
           <h5 class="fw-bold mb-3">メモ</h5>
           <%= form_with model: @shopping_list, url: shopping_list_path, method: :patch, local: true do |f| %>
-            <%= f.text_area :content, class: "form-control border-0 bg-transparent", rows: 10, placeholder: "ラッピングや保冷剤など..." %>
+            <%= f.text_area :content, class: "form-control border-0 bg-transparent", rows: 10, placeholder: "ラッピング、型紙など..." %>
             <div class="text-end mt-3">
               <%= f.submit "ノートに保存", class: "btn btn-sm btn-dark" %>
             </div>
