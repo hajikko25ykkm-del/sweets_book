@@ -5,14 +5,12 @@
 
   <div class="post-grid">
     <% @posts.each do |post| %>
-      <div class="post-item-container" style="position: relative; margin-bottom: 20px;">
+      <div class="post-item-container">
         
         <%= link_to admin_post_path(post), class: "post-card-link" do %>
           <div class="post-card">
             <div class="post-image">
-              <% if post.image.attached? %>
-                <%= image_tag post.image %>
-              <% end %>
+              <%= image_tag post.image if post.image.attached? %>
             </div>
 
             <div class="post-info">
@@ -23,11 +21,10 @@
           </div>
         <% end %>
 
-        <div class="admin-btn-area" style="text-align: center; margin-top: 8px;">
+        <div class="admin-btn-area">
           <%= link_to "管理権限で削除", admin_post_path(post), method: :delete, 
               data: { confirm: '本当にこの投稿を削除しますか？（管理者の操作です）' }, 
-              class: "btn-delete-admin", 
-              style: "color: #d9534f; font-size: 0.85em; text-decoration: none; border: 1px solid #d9534f; padding: 3px 8px; border-radius: 4px;" %>
+              class: "btn-delete-admin" %>
         </div>
         
       </div>

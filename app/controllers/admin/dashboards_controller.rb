@@ -2,7 +2,7 @@ class Admin::DashboardsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @user = User.count
+    @user_count = User.count
     @post_count = Post.count
     @posts = Post.all.includes(:user).order(created_at: :desc)
   end

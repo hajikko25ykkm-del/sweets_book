@@ -1,22 +1,22 @@
-<div class="admin-stats-container" style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 30px;">
-  <h2 style="font-size: 1.1em; color: #666; margin-bottom: 15px;">サイト全体の状況</h2>
+<div class="admin-stats-container">
+  <h2 class="stats-title">サイト全体の状況</h2>
   
-  <div style="display: flex; gap: 50px;">
+  <div class="stats-flex">
     <div class="stat-item">
-      <%= link_to admin_users_path, style: "text-decoration: none; color: inherit;" do %>
-        <p style="margin: 0; font-size: 0.9em; color: #888;">登録者</p>
-        <p style="margin: 0;">
-          <span style="font-size: 2.2em; font-weight: bold; color: #9fdba9;"><%= @user_count %></span>
-          <span style="font-size: 1em; color: #555;">人</span>
+      <%= link_to admin_users_path, class: "stat-link" do %>
+        <p class="stat-label">登録者</p>
+        <p class="stat-value-wrapper">
+          <span class="value-num accent"><%= @user_count || 0 %></span>
+          <span class="value-unit">人</span>
         </p>
       <% end %>
     </div>
 
     <div class="stat-item">
-      <p style="margin: 0; font-size: 0.9em; color: #888;">投稿総数</p>
-      <p style="margin: 0;">
-        <span style="font-size: 2.2em; font-weight: bold; color: #555;"><%= @post_count %></span>
-        <span style="font-size: 1em; color: #555;">件</span>
+      <p class="stat-label">投稿総数</p>
+      <p class="stat-value-wrapper">
+        <span class="value-num"><%= @post_count || 0 %></span>
+        <span class="value-unit">件</span>
       </p>
     </div>
   </div>
@@ -26,21 +26,16 @@
 
 <section class="post-index">
   <h2 class="index-title">最新の投稿（5件）</h2>
-
   <hr>
 
   <div class="post-grid">
-    <% @posts.first(5).each do |post| %>
-      <div class="post-item-container" style="position: relative; margin-bottom: 20px;">
-        
+    <% @posts.each do |post| %>
+      <div class="post-item-container">
         <%= link_to post_path(post), class: "post-card-link" do %>
           <div class="post-card">
             <div class="post-image">
-              <% if post.image.attached? %>
-                <%= image_tag post.image %>
-              <% end %>
+              <%= image_tag post.image if post.image.attached? %>
             </div>
-
             <div class="post-info">
               <h3 class="post-title"><%= post.title %></h3>
               <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
@@ -49,16 +44,16 @@
           </div>
         <% end %>
 
-        <div class="admin-btn-area" style="text-align: center; margin-top: 8px;">
+        <div class="admin-btn-area">
           <%= link_to "管理権限で削除", admin_post_path(post), method: :delete, 
               data: { confirm: '本当にこの投稿を削除しますか？（管理者の操作です）' }, 
-              class: "btn-delete-admin", 
-              style: "color: #d9534f; font-size: 0.85em; text-decoration: none; border: 1px solid #d9534f; padding: 3px 8px; border-radius: 4px;" %>
+              class: "btn-delete-admin" %>
         </div>
-
-        <%= link_to "すべての投稿を管理する ≫", admin_posts_path, class: "view-all-link" %>
-
       </div>
     <% end %>
+  </div>
+
+  <div class="text-end mt-3">
+    <%= link_to "すべての投稿を管理する ≫", admin_posts_path, class: "view-all-link" %>
   </div>
 </section>

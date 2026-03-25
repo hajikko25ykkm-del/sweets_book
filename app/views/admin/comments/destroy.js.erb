@@ -1,0 +1,7 @@
+$('#admin-comment-<%= @comment.id %>').fadeOut(300, function() {
+  $(this).remove();
+
+  if ($('.admin-comment-item').length === 0) {
+    $('#comments-list').html('<div class="alert alert-light border">コメントはまだありません。</div>');
+  }
+});
