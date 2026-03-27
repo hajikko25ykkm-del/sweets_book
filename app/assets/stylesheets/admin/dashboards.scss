@@ -4,21 +4,22 @@
 
 /* 管理画面専用スタイル */
 .admin-stats-container {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 30px;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 800px;
 
   .stats-title {
-    font-size: 1.1em;
+    display: inline-block;
+    font-size: 1.5em;
     color: #666;
-    margin-bottom: 15px;
+    margin: 15px;
   }
 
   .stats-flex {
     display: flex;
-    gap: 50px;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
   .stat-link {

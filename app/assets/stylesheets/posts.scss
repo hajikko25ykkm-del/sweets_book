@@ -26,7 +26,7 @@
   transition: all 0.3s ease;
   flex-shrink: 0;
   cursor: pointer;
-  pointer-events: auto !important; /* クリックを有効化 */
+  pointer-events: auto !important;
   z-index: 10;
   border: none;
 
@@ -41,13 +41,13 @@
     align-items: center;
     justify-content: center;
     text-decoration: none !important;
-    color: #ffffff !important; /* 数字を白に固定 */
+    color: #ffffff !important;
   }
 
   .fav-count {
     font-size: 0.8rem;
     font-weight: bold;
-    margin-top: -4px; /* しおりの凹みを避けて少し上に */
+    margin-top: -4px;
     color: #ffffff !important;
   }
 }
@@ -73,7 +73,6 @@
     justify-content: center;
   }
 
-  /* 一覧画面のしおりサイズ調整 */
   .bookmark-fav {
     width: 22px;
     height: 30px;
@@ -100,12 +99,24 @@
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 20px rgba(109, 76, 65, 0.15);
+    .post-image img {
+      transform: scale(1.1);
+    }
   }
 
-  .post-image img {
+  .post-image {
     width: 100%;
     height: 220px;
-    object-fit: cover;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      transform: scale(1);
+    }
   }
 
   .post-info {
@@ -119,7 +130,16 @@
       font-size: 1.1rem;
       font-weight: bold;
       margin-bottom: 8px;
-      a { color: inherit; text-decoration: none; }
+
+      overflow-wrap: break-word;
+      word-break: break-all;
+      line-height: 1.4;
+
+      a { 
+        color: inherit;
+        text-decoration: none;
+        flex: 1;
+      }
     }
     
     .post-user {
@@ -132,6 +152,49 @@
       font-size: 0.8rem;
       text-align: right;
       color: #a1887f;
+    }
+  }
+}
+
+
+/* ==========================================================================
+    管理者用投稿一覧ページ（横並び5件）
+   ========================================================================== */
+.dashboard-card-item {
+  width: calc((100% - 120px) / 5); 
+  min-width: 180px;
+  
+  .post-card {
+    overflow: hidden; 
+    
+    .post-image {
+      height: 135px; 
+      overflow: hidden;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        transform: scale(1);
+      }
+    }
+
+    .post-info {
+      padding: 10px;
+      .post-title {
+        font-size: 0.9rem;
+        overflow-wrap: break-word;
+        word-break: break-all;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      .post-image img {
+        transform: scale(1.1);
+      }
     }
   }
 }
@@ -314,7 +377,7 @@
 .step-number-text {
   font-size: 1.1rem;
   color: #333;
-  min-width: 25px;
+  min-width: 60px;
   display: inline-block;
 }
 .step-text {
@@ -365,6 +428,15 @@
   display: inline-block;
   line-height: 1;
   vertical-align: middle;
+}
+
+.pagination-wrapper .pagination {
+  display: flex !important;
+  gap: 12px !important;
+  border: none !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  list-style: none !important;
 }
 
 /* ==========================================================================

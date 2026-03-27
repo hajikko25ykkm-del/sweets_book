@@ -25,21 +25,13 @@ class PostsController < ApplicationController
 
   def index
     if user_signed_in?
-      # 1. 基本条件：投稿自体が「公開(true)」であること
-      # 2. ただし「自分の投稿」であれば、非公開でも表示する
-      # 3. かつ、投稿主の「ユーザー設定」が公開、または自分がフォローしている人であること
       @posts = Post.joins(:user).where(
         "(posts.is_public = ? OR posts.user_id = ?) AND (users.privacy = ? OR users.id IN (?) OR users.id = ?)",
-        true,                      # 投稿が公開
-        current_user.id,           # または自分の投稿
-        false,                     # ユーザーが公開設定
-        current_user.following_ids, # またはフォロー中
-        current_user.id            # または自分自身
-      ).order(created_at: :desc)
+        true, current_user.id, false, current_user.following_ids, current_user.id )
     else
-      # ログインしていない人：投稿が公開 かつ ユーザーも公開設定 のものだけ
-      @posts = Post.joins(:user).where(posts: { is_public: true }, users: { privacy: false }).order(created_at: :desc)
+      @posts = Post.joins(:user).where(posts: { is_public: true }, users: { privacy: false })
     end
+    @posts = @posts.order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def edit

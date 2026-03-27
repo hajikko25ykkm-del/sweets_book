@@ -1,33 +1,38 @@
 <section class="post-index">
-  <h2 class="index-title">投稿一覧</h2>
-
+  <h2 class="index-title">投稿一覧（管理者）</h2>
   <hr>
 
   <div class="post-grid">
     <% @posts.each do |post| %>
-      <div class="post-item-container">
-        
-        <%= link_to admin_post_path(post), class: "post-card-link" do %>
-          <div class="post-card">
+      <div class="post-card-container">
+        <div class="post-card">
+          
+          <%= link_to admin_post_path(post), class: "post-image-link" do %>
             <div class="post-image">
               <%= image_tag post.image if post.image.attached? %>
             </div>
+          <% end %>
 
-            <div class="post-info">
-              <h3 class="post-title"><%= post.title %></h3>
-              <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
-              <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
+          <div class="post-info">
+            <h3 class="post-title">
+              <%= link_to post.title, admin_post_path(post), class: "post-title-link" %>
+            </h3>
+            
+            <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
+            <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
+            
+            <div class="admin-btn-area mt-3 pt-2 border-top text-center">
+              <%= link_to "管理権限で削除", admin_post_path(post), method: :delete, 
+                  data: { confirm: '本当にこの投稿を削除しますか？' }, 
+                  class: "btn-delete-admin text-danger small" %>
             </div>
           </div>
-        <% end %>
-
-        <div class="admin-btn-area">
-          <%= link_to "管理権限で削除", admin_post_path(post), method: :delete, 
-              data: { confirm: '本当にこの投稿を削除しますか？（管理者の操作です）' }, 
-              class: "btn-delete-admin" %>
         </div>
-        
       </div>
     <% end %>
   </div>
 </section>
+
+<div class="pagination-wrapper my-2">
+  <%= paginate @posts %>
+</div>

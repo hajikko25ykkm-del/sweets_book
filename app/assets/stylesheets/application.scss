@@ -5,23 +5,20 @@
  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
  * vendor/assets/stylesheets directory can be referenced here using a relative path.
  *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
  *= require_tree .
  *= require_self
  */
 
+/* --- 管理者用ヘッダー --- */
 header.admin-mode {
   background-color: #9fdba9 !important;
   border-bottom: 2px solid #86c091;
 }
 
+/* --- ヘッダー全体のレイアウト --- */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* ロゴ(左)とメニュー(右)を両端に配置 */
   align-items: center;
   padding: 15px 50px;
   background-color: #fff;
@@ -30,6 +27,7 @@ header {
   top: 0;
   z-index: 100;
 
+  /* ロゴのデザイン */
   h1 a {
     font-family: 'Georgia', serif;
     font-size: 1.8rem;
@@ -43,11 +41,13 @@ header {
   }
 
   .nav-content {
-  display: flex;
-  flex-direction: column; /* 中身（リンクと検索バー）を縦に並べる */
-  align-items: flex-end;   /* 右側に揃える */
-}
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+  }
 
+  /* リンク一覧のスタイル */
   .nav-links {
     display: flex;
     list-style: none;
@@ -73,11 +73,28 @@ header {
 .search-container {
   display: flex;
   justify-content: flex-end; 
-  margin: 20px;
   width: 100%;
+  margin: 0;
+  
+  form {
+    display: flex;
+    gap: 5px;
+    
+    input[type="text"] {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    
+    select {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+    }
+  }
 }
 
-/* ログイン画面と新規登録画面のスタイル調整 */
+/* --- ログイン・新規登録画面 --- */
 .book-page {
   background-color: #fdfdf5 !important;
   border: none !important;
@@ -86,6 +103,7 @@ header {
   position: relative !important;
   box-shadow: 5px 5px 15px rgba(0,0,0,0.1), 1px 1px 2px rgba(0,0,0,0.1) !important;
 }
+
 .custom-input {
   background-color: transparent !important;
   border: none !important;
@@ -93,17 +111,19 @@ header {
   border-radius: 0 !important;
   padding-left: 0 !important;
 }
+
 .custom-input:focus {
   background-color: transparent !important;
   box-shadow: none !important;
   border-bottom: 2px solid #5a4a42 !important;
 }
+
 h2 {
   font-family: "serif" !important;
   color: #5a4a42 !important;
 }
 
-/* 新規登録画面エラーメッセージ */
+/* --- エラーメッセージのスタイル --- */
 #error_explanation {
   background-color: #fff5f5;
   border: 1px dashed #e35d6a;
@@ -130,7 +150,7 @@ h2 {
   }
 }
 
-/* 買物リストの切り取りメモ */
+/* --- 買物リストのメモ帳デザイン --- */
 .memo-notebook {
   background: #fff;
   border-left: 20px solid #f0f0f0;
@@ -151,18 +171,17 @@ h2 {
   background-size: 10px 30px;
 }
 
-/* --- 付箋風のショッピングリスト --- */
+/* 付箋風のショッピングリスト */
 .sticky-note {
   background: #fff9c4;
   box-shadow: 5px 5px 7px rgba(0,0,0,0.1);
   padding: 15px 15px 15px 30px;
   margin-bottom: 20px;
-  transform: rotate(-1deg); /* 少し傾ける */
+  transform: rotate(-1deg);
   border-left: 5px solid #ffeb3b;
   transition: transform 0.2s;
 }
 
-/* 重なり合う感じで交互に傾ける */
 .sticky-note:nth-child(even) {
   transform: rotate(1deg);
   background: #e3f2fd;

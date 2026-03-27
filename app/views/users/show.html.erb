@@ -11,9 +11,7 @@
 
       <% if @user == current_user %>
         <div class="mt-2">
-          <%= link_to favorites_posts_path, class: "text-decoration-none text-primary fw-bold" do %>
-            <i class="bi bi-heart-fill me-1"></i>お気に入り一覧へ
-          <% end %>
+          <%= link_to favorites_posts_path, class: "text-decoration-none text-primary fw-bold" do %>お気に入り一覧<% end %>
         </div>
       <% end %>
     </div>

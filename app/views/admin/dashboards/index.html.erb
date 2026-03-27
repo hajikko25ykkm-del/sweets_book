@@ -13,47 +13,60 @@
     </div>
 
     <div class="stat-item">
-      <p class="stat-label">投稿総数</p>
-      <p class="stat-value-wrapper">
-        <span class="value-num"><%= @post_count || 0 %></span>
-        <span class="value-unit">件</span>
-      </p>
+      <%= link_to admin_posts_path, class: "stat-link" do %>
+        <p class="stat-label">投稿総数</p>
+        <p class="stat-value-wrapper">
+          <span class="value-num"><%= @post_count || 0 %></span>
+          <span class="value-unit">件</span>
+        </p>
+      <% end %>
     </div>
   </div>
 </div>
 
 <hr>
 
-<section class="post-index">
+<section class="post-index dashboard-index">
   <h2 class="index-title">最新の投稿（5件）</h2>
   <hr>
 
   <div class="post-grid">
-    <% @posts.each do |post| %>
-      <div class="post-item-container">
-        <%= link_to post_path(post), class: "post-card-link" do %>
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <div class="dashboard-card-item">
           <div class="post-card">
-            <div class="post-image">
-              <%= image_tag post.image if post.image.attached? %>
-            </div>
+            
+            <%= link_to admin_post_path(post), class: "post-image-link" do %>
+              <div class="post-image">
+                <%= image_tag post.image if post.image.attached? %>
+              </div>
+            <% end %>
+
             <div class="post-info">
-              <h3 class="post-title"><%= post.title %></h3>
+              <h3 class="post-title">
+                <%= link_to post.title, admin_post_path(post), class: "post-title-link" %>
+              </h3>
+              
               <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
-              <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
+              <div class="post-date"><%= post.created_at.strftime('%Y/%m/%d') %></div>
+              
+              <div class="admin-btn-area mt-2 pt-2 border-top text-center">
+                <%= link_to "削除", admin_post_path(post), method: :delete, 
+                    data: { confirm: '管理権限で削除しますか？' }, 
+                    class: "btn-delete-admin text-danger small" %>
+              </div>
             </div>
           </div>
-        <% end %>
-
-        <div class="admin-btn-area">
-          <%= link_to "管理権限で削除", admin_post_path(post), method: :delete, 
-              data: { confirm: '本当にこの投稿を削除しますか？（管理者の操作です）' }, 
-              class: "btn-delete-admin" %>
         </div>
+      <% end %>
+    <% else %>
+      <div class="empty-state text-center py-5 w-100">
+        <p class="text-muted">現在、表示できる投稿はありません。</p>
       </div>
     <% end %>
   </div>
 
-  <div class="text-end mt-3">
+  <div class="text-center mt-4">
     <%= link_to "すべての投稿を管理する ≫", admin_posts_path, class: "view-all-link" %>
   </div>
 </section>

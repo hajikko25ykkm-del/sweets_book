@@ -4,7 +4,7 @@ class Admin::PostsController < ApplicationController
   def index
     @user = User.count
     @post_count = Post.count
-    @posts = Post.all.includes(:user).order(created_at: :desc)
+    @posts = Post.all.includes(:user).order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def show
