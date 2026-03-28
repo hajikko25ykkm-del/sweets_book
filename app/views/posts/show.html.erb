@@ -91,19 +91,22 @@
       </div>
 
       <hr class="recipe-divider my-5">
+
       <div class="comment-section">
-        <h3>コメント</h3>
+        <div class="section-title mb-4">コメント</div>
+
         <div id="comments-list" class="mb-4">
           <%= render @post.comments %>
         </div>
-        <div id="new_comment" class="bg-light p-3 rounded">
+
+        <div id="new_comment" class="comment-input-box p-3 mt-4">
           <%= form_with(model: [@post, Comment.new], local: false) do |f| %>
             <div class="mb-3">
               <%= f.label :body, "コメントを追加:", class: "form-label fw-bold" %>
-              <%= f.text_area :body, rows: 2, class: "form-control" %>
+              <%= f.text_area :body, rows: 2, class: "form-control custom-textarea" %>
             </div>
-            <div class="text-end">
-              <%= f.submit "コメントする", class: "btn btn-primary btn-sm" %>
+            <div class="comment-submit-wrapper">
+              <%= f.submit "コメントする", class: "btn-brown" %>
             </div>
           <% end %>
         </div>

@@ -32,6 +32,8 @@
 <section class="user-posts post-index">
   <h2 class="index-title">投稿したレシピ</h2>
 
+  <hr>
+  
   <div class="post-grid">
     <% @posts.each do |post| %>
       <%= render 'posts/post_card', post: post %>
