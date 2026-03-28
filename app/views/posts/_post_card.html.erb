@@ -20,6 +20,10 @@
       
       <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
       <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
+      
+      <div class="post-tag">
+        <span class="badge"># <%= post.genre.name %></span>
+      </div>
     </div>
 
   </div>

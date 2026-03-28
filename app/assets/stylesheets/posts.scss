@@ -82,19 +82,33 @@
 
 .post-card-container {
   width: calc((100% - 60px) / 3); /* 3枚並び */
-  min-width: 300px;
-  max-width: 350px;
+  min-width: 280px;
+  max-width: 320px;
   position: relative;
 }
-
+.post-tag {
+  position: absolute;
+  bottom: 15px;
+  right: -5px; /* 少しはみ出させるのがコツ */
+  background: rgba(255, 157, 0, 0.8); /* マステっぽい半透明オレンジ */
+  color: white;
+  padding: 4px 12px;
+  transform: rotate(3deg); /* 少し傾ける */
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  font-size: 0.8rem;
+}
 .post-card {
   background: #fff;
-  border-radius: 15px;
-  border: 1px solid #efebe9;
-  box-shadow: 0 4px 10px rgba(109, 76, 65, 0.1);
-  overflow: hidden;
-  height: 100%;
+  box-shadow: 3px 3px 12px rgba(0,0,0,0.15);
+  padding: 20px 20px 20px 50px;
+  position: relative;
+  border-radius: 4px;
+  transform: rotate(-1.5deg);
   transition: all 0.3s ease;
+  background-image: radial-gradient(circle, #c9c7ca 40%, transparent 45%);
+  background-size: 25px 25px;
+  background-position: 12px 10px;
+  background-repeat: repeat-y;
 
   &:hover {
     transform: translateY(-8px);
@@ -120,7 +134,7 @@
   }
 
   .post-info {
-    padding: 15px;
+    padding: 10px;
     color: var(--sweet-brown);
 
     .post-title {
@@ -149,9 +163,10 @@
     }
 
     .post-date {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       text-align: right;
       color: #a1887f;
+      margin-bottom: 1.2rem;
     }
   }
 }
@@ -354,6 +369,9 @@
   padding-left: 30px;
   min-height: 400px;
 }
+.loose-leaf-header .section-title {
+  margin: 10px 0; 
+}
 .loose-leaf::before {
   content: "";
   position: absolute;
@@ -395,6 +413,14 @@
 
 
 /* 材料チェックボタン */
+.section-title {
+  padding-left: 15px;
+  border-left: 7px solid #ff9d00;
+  line-height: 1.2;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
 .fake-checkbox {
   width: 18px;
   height: 18px;
