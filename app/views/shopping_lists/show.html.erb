@@ -1,39 +1,43 @@
-<section class="py-5 bg-light" style="min-height: 100vh;">
+<section class="shopping-list-section">
   <div class="container">
-    <h2 class="text-center mb-5" style="color: #8d6e63;">📔 買い物リスト</h2>
+    <h2 class="shopping-list-title">
+      <i class="fa-solid fa-clipboard-list me-2"></i> 買い物リスト
+    </h2>
 
-    <hr>
+    <hr class="shopping-list-divider">
 
     <div class="row">
+      <%# 左側：自由記述メモ %>
       <div class="col-md-4 mb-4">
         <div class="memo-notebook">
-          <h5 class="fw-bold mb-3">メモ</h5>
+          <h5 class="memo-title">メモ</h5>
           <%= form_with model: @shopping_list, url: shopping_list_path, method: :patch, local: true do |f| %>
-            <%= f.text_area :content, class: "form-control border-0 bg-transparent", rows: 10, placeholder: "ラッピング、型紙など..." %>
+            <%= f.text_area :content, class: "memo-textarea", rows: 10, placeholder: "ラッピング、型紙など..." %>
             <div class="text-end mt-3">
-              <%= f.submit "ノートに保存", class: "btn btn-sm btn-dark" %>
+              <%= f.submit "ノートに保存", class: "btn-save-note" %>
             </div>
           <% end %>
         </div>
       </div>
 
+      <%# 右側：レシピから追加された付箋リスト %>
       <div class="col-md-8">
         <% if @items_by_post.any? %>
           <div class="row">
             <% @items_by_post.each do |post, items| %>
-              <div class="col-sm-6">
+              <div class="col-sm-6 mb-4">
                 <div class="sticky-note">
                   <div class="sticky-note-title">
-                    <%= link_to post.title, post_path(post), class: "text-decoration-none text-dark" %>
+                    <%= link_to post.title, post_path(post) %>
                   </div>
-                  <ul class="list-unstyled mb-0">
+                  <ul class="item-list">
                     <% items.each do |item| %>
-                      <li class="mb-2 d-flex align-items-center">
+                      <li class="item-unit">
                         <%= check_box_tag "item_#{item.id}", 1, item.is_bought, 
-                              class: "form-check-input me-2",
+                              class: "item-checkbox",
                               data: { url: update_item_status_shopping_list_path(item), method: :patch, remote: true } %>
-                        <span class="small"><%= item.post_ingredient&.ingredient_name %></span>
-                        <small class="text-muted ms-1">(<%= item.post_ingredient&.quantity %>)</small>
+                        <span class="item-name"><%= item.post_ingredient&.ingredient_name %></span>
+                        <small class="item-quantity">(<%= item.post_ingredient&.quantity %>)</small>
                       </li>
                     <% end %>
                   </ul>
@@ -42,8 +46,8 @@
             <% end %>
           </div>
         <% else %>
-          <div class="text-center py-5">
-            <p class="text-muted">付箋はまだありません。レシピから追加しましょう！</p>
+          <div class="empty-message">
+            <p>付箋はまだありません。レシピから追加しましょう！</p>
           </div>
         <% end %>
       </div>

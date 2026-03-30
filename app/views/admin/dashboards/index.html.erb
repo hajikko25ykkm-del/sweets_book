@@ -1,72 +1,90 @@
-<div class="admin-stats-container">
-  <h2 class="stats-title">サイト全体の状況</h2>
-  
-  <div class="stats-flex">
-    <div class="stat-item">
-      <%= link_to admin_users_path, class: "stat-link" do %>
-        <p class="stat-label">登録者</p>
-        <p class="stat-value-wrapper">
-          <span class="value-num accent"><%= @user_count || 0 %></span>
-          <span class="value-unit">人</span>
-        </p>
-      <% end %>
-    </div>
+<div class="admin-dashboard-wrapper">
+  <%# 1. サイト全体の状況（中央にコンパクトに配置） %>
+  <div class="admin-stats-container">
+    <h2 class="stats-title">
+      <i class="fa-solid fa-chart-line"></i> サイト全体の状況
+    </h2>
+    
+    <div class="stats-flex">
+      <div class="stat-item">
+        <%= link_to admin_users_path, class: "stat-link" do %>
+          <div class="stat-icon-circle"><i class="fa-solid fa-users"></i></div>
+          <div class="stat-content">
+            <p class="stat-label">登録者</p>
+            <p class="stat-value-wrapper">
+              <span class="value-num accent"><%= @user_count || 0 %></span>
+              <span class="value-unit">人</span>
+            </p>
+          </div>
+        <% end %>
+      </div>
 
-    <div class="stat-item">
-      <%= link_to admin_posts_path, class: "stat-link" do %>
-        <p class="stat-label">投稿総数</p>
-        <p class="stat-value-wrapper">
-          <span class="value-num"><%= @post_count || 0 %></span>
-          <span class="value-unit">件</span>
-        </p>
-      <% end %>
+      <div class="stat-item">
+        <%= link_to admin_posts_path, class: "stat-link" do %>
+          <div class="stat-icon-circle"><i class="fa-solid fa-file-invoice"></i></div>
+          <div class="stat-content">
+            <p class="stat-label">投稿総数</p>
+            <p class="stat-value-wrapper">
+              <span class="value-num"><%= @post_count || 0 %></span>
+              <span class="value-unit">件</span>
+            </p>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
 
-<hr>
+  <hr class="admin-divider">
 
-<section class="post-index dashboard-index">
-  <h2 class="index-title">最新の投稿（5件）</h2>
-  <hr>
+  <%# 2. 最新の投稿（タイル状のグリッドに戻す） %>
+  <section class="admin-post-index dashboard-section">
+    <h2 class="index-title">
+      <i class="fa-solid fa-bell"></i> 最新の投稿（5件）
+    </h2>
 
-  <div class="post-grid">
-    <% if @posts.any? %>
-      <% @posts.each do |post| %>
-        <div class="dashboard-card-item">
-          <div class="post-card">
-            
-            <%= link_to admin_post_path(post), class: "post-image-link" do %>
-              <div class="post-image">
-                <%= image_tag post.image if post.image.attached? %>
-              </div>
-            <% end %>
+    <div class="post-grid">
+      <% if @posts.any? %>
+        <% @posts.each do |post| %>
+          <div class="post-item-container">
+            <div class="post-card">
+              <%= link_to admin_post_path(post), class: "post-image-link" do %>
+                <div class="post-image">
+                  <%= image_tag post.image if post.image.attached? %>
+                </div>
+              <% end %>
 
-            <div class="post-info">
-              <h3 class="post-title">
-                <%= link_to post.title, admin_post_path(post), class: "post-title-link" %>
-              </h3>
-              
-              <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
-              <div class="post-date"><%= post.created_at.strftime('%Y/%m/%d') %></div>
-              
-              <div class="admin-btn-area mt-2 pt-2 border-top text-center">
-                <%= link_to "削除", admin_post_path(post), method: :delete, 
-                    data: { confirm: '管理権限で削除しますか？' }, 
-                    class: "btn-delete-admin text-danger small" %>
+              <div class="post-info">
+                <h3 class="post-title">
+                  <%= link_to post.title, admin_post_path(post) %>
+                </h3>
+                
+                <div class="post-meta">
+                  <p class="post-user"><i class="fa-solid fa-user"></i> <%= post.user.name %></p>
+                  <div class="post-date"><%= post.created_at.strftime('%Y/%m/%d') %></div>
+                </div>
+                
+                <div class="admin-action-area">
+                  <%= link_to admin_post_path(post), method: :delete, 
+                        data: { confirm: '管理権限で削除しますか？' }, 
+                        class: "btn-admin-delete" do %>
+                    <i class="fa-solid fa-trash-can"></i> 削除
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
+        <% end %>
+      <% else %>
+        <div class="empty-state">
+          <p>現在、表示できる投稿はありません。</p>
         </div>
       <% end %>
-    <% else %>
-      <div class="empty-state text-center py-5 w-100">
-        <p class="text-muted">現在、表示できる投稿はありません。</p>
-      </div>
-    <% end %>
-  </div>
+    </div>
 
-  <div class="text-center mt-4">
-    <%= link_to "すべての投稿を管理する ≫", admin_posts_path, class: "view-all-link" %>
-  </div>
-</section>
+    <div class="text-center mt-5">
+      <%= link_to admin_posts_path, class: "view-all-link" do %>
+        すべての投稿を管理する <i class="fa-solid fa-angles-right"></i>
+      <% end %>
+    </div>
+  </section>
+</div>

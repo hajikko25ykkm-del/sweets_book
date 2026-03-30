@@ -1,30 +1,47 @@
-<section class="post-index">
-  <h2 class="index-title">投稿一覧（管理者）</h2>
-  <hr>
+<section class="admin-post-index">
+  <%# 管理用アイコンを追加 %>
+  <h1 class="admin-title">
+    <i class="fa-solid fa-newspaper"></i> 投稿一覧（管理者）
+  </h1>
+
+  <hr class="admin-divider">
 
   <div class="post-grid">
     <% @posts.each do |post| %>
-      <div class="post-card-container">
+      <div class="post-item-container">
+        
         <div class="post-card">
-          
           <%= link_to admin_post_path(post), class: "post-image-link" do %>
             <div class="post-image">
-              <%= image_tag post.image if post.image.attached? %>
+              <% if post.image.attached? %>
+                <%= image_tag post.image %>
+              <% else %>
+                <div class="no-image-placeholder">No Image</div>
+              <% end %>
             </div>
           <% end %>
 
           <div class="post-info">
             <h3 class="post-title">
-              <%= link_to post.title, admin_post_path(post), class: "post-title-link" %>
+              <%= link_to post.title, admin_post_path(post) %>
             </h3>
             
-            <p class="post-user"><span>投稿者: </span> <%= post.user.name %></p>
-            <div class="post-date">投稿日: <%= post.created_at.strftime('%Y/%m/%d') %></div>
-            
-            <div class="admin-btn-area mt-3 pt-2 border-top text-center">
-              <%= link_to "管理権限で削除", admin_post_path(post), method: :delete, 
-                  data: { confirm: '本当にこの投稿を削除しますか？' }, 
-                  class: "btn-delete-admin text-danger small" %>
+            <div class="post-meta">
+              <p class="post-user">
+                <i class="fa-solid fa-user-pen"></i> <span>投稿者:</span> <%= post.user.name %>
+              </p>
+              <div class="post-date">
+                <i class="fa-regular fa-calendar-check"></i> <%= post.created_at.strftime('%Y/%m/%d') %>
+              </div>
+            </div>
+
+            <%# 削除アクションエリア %>
+            <div class="admin-action-area">
+              <%= link_to admin_post_path(post), method: :delete, 
+                    data: { confirm: '本当にこの投稿を削除しますか？' }, 
+                    class: "btn-admin-delete" do %>
+                <i class="fa-solid fa-trash-can"></i> 管理権限で削除
+              <% end %>
             </div>
           </div>
         </div>
@@ -33,6 +50,6 @@
   </div>
 </section>
 
-<div class="pagination-wrapper my-2">
+<div class="pagination-wrapper">
   <%= paginate @posts %>
 </div>

@@ -1,3 +1,194 @@
 // Place all the styles related to the admin/users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+/* ==========================================================================
+   管理者用：ユーザー管理ページ
+   ========================================================================== */
+.admin-user-index {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+
+  .admin-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #546e7a;
+    font-weight: bold;
+    i { margin-right: 10px; color: #8d6e63; }
+  }
+
+  .admin-divider {
+    border-color: #cfd8dc;
+    margin-bottom: 40px;
+  }
+
+  .user-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+  }
+
+  .user-item-container {
+    width: 30%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .user-card {
+    background: #ffffff;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    min-height: 180px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      border-color: #8d6e63;
+    }
+
+    .user-info {
+      padding: 20px;
+
+      .user-name {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 12px;
+        font-weight: bold;
+        .user-id { font-size: 0.75rem; color: #9e9e9e; font-weight: normal; }
+      }
+
+      .user-contact {
+        font-size: 0.9rem;
+        color: #546e7a;
+        line-height: 1.4;
+        strong { color: #8d6e63; }
+        p { margin: 2px 0 0 0; word-break: break-all; }
+      }
+
+      .user-date {
+        margin-top: 15px;
+        font-size: 0.85rem;
+        color: #9e9e9e;
+        text-align: right;
+      }
+    }
+  }
+
+  .user-card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .admin-action-area {
+    margin-top: 12px;
+    text-align: center;
+
+    .btn-admin-withdraw {
+      display: inline-block;
+      color: #ff5252;
+      font-size: 0.85rem;
+      font-weight: bold;
+      border: 1px solid #ff5252;
+      padding: 6px 15px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+
+      i { margin-right: 5px; }
+
+      &:hover {
+        background-color: #ff5252;
+        color: #ffffff;
+        box-shadow: 0 4px 8px rgba(255, 82, 82, 0.2);
+      }
+    }
+  }
+}
+
+/* --- ユーザー詳細プロファイル --- */
+.admin-user-profile {
+  margin-bottom: 40px;
+
+  .profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+
+    .profile-title {
+      font-size: 1.5rem;
+      color: #546e7a;
+      font-weight: bold;
+      margin: 0;
+      i { color: #8d6e63; margin-right: 10px; }
+    }
+    
+    .btn-admin-back {
+      text-decoration: none;
+      color: #546e7a;
+      border: 1px solid #cfd8dc;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      transition: 0.3s;
+      &:hover { background: #eceff1; }
+    }
+  }
+
+  .user-info-card {
+    background: #fff;
+    border: 1px solid #e0e6ed;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    gap: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+
+    .info-item {
+      .info-label {
+        display: block;
+        font-size: 0.75rem;
+        color: #90a4ae;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        letter-spacing: 0.5px;
+      }
+      .info-value {
+        font-size: 1.1rem;
+        color: #37474f;
+        font-weight: 500;
+        
+        .badge-count {
+          display: inline-block;
+          background: #f1f4f6;
+          padding: 4px 12px;
+          border-radius: 15px;
+          font-size: 0.9rem;
+          margin-right: 8px;
+          strong { color: #8d6e63; }
+        }
+      }
+    }
+  }
+}
+
+.admin-post-index {
+  .index-title {
+    font-size: 1.2rem;
+    color: #546e7a;
+    margin-bottom: 25px;
+    i { margin-right: 8px; opacity: 0.7; }
+  }
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+  .admin-user-index .user-item-container {
+    width: 100%;
+  }
+}
