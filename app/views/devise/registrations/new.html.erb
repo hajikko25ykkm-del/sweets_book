@@ -20,7 +20,7 @@
           <div class="mb-4">
             <%= f.label :パスワード, class: "form-label fw-bold" %>
             <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %>文字以上)</em>
+            <span class="text-muted small">(<%= @minimum_password_length %>文字以上)</span>
             <% end %><br />
             <%= f.password_field :password, autocomplete: "new-password", class: "form-control custom-input" %>
           </div>
@@ -32,11 +32,12 @@
             <%= f.submit "新規登録", class: "btn btn-dark shadow-sm" %>
           </div>
         <% end %>
-        
+
         <div class="text-center mt-4">
-          <%= render "devise/shared/links" %>
-        </div>
+          <p class="small text-muted">アカウントをお持ちの方はこちら</p>
+          <%= link_to "ログイン", new_session_path(resource_name), class: "btn btn-outline-secondary btn-sm" %>
       </div>
+      
     </div>
   </div>
 </div>
