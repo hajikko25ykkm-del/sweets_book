@@ -18,6 +18,11 @@ ja:
         body: "説明"
         image: "メイン写真"
         genre: "ジャンル"
+        post_ingredients: "材料"
+        steps: "作り方"
+      step:
+        content: "作り方の内容"
+        image: "作り方の写真"
   date:
     abbr_day_names:
     - 日

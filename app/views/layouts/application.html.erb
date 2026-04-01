@@ -26,7 +26,7 @@
             </ul>
           <% elsif user_signed_in? %>
             <ul class="nav-links">
-              <li><%= link_to "投稿一覧", posts_path %></li>
+              <li><%= link_to "投稿一覧", all_posts_path %></li>
               <li><%= link_to "新規投稿", new_post_path %></li>
               <li><%= link_to "マイページ", user_path(current_user.id) %></li>
               <li><%= link_to "買い物リスト", shopping_list_path %></li>

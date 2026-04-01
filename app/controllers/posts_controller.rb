@@ -15,6 +15,8 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post)
     else
+      @post.post_ingredients.build if @post.post_ingredients.empty?
+      @post.steps.build if @post.steps.empty?
       render :new, status: :unprocessable_entity
     end
   end
@@ -24,9 +26,15 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.viewable_by(current_user)
-                 .order(created_at: :desc)
-                 .page(params[:page]).per(20)
+    @posts = Post.viewable_by(current_user).order(created_at: :desc)
+    
+    if params[:genre_id].present?
+      @genre = Genre.find(params[:genre_id])
+      @posts = @posts.where(genre_id: params[:genre_id])
+    end
+
+    @posts = @posts.page(params[:page]).per(20)
+    @genres = Genre.all 
   end
 
   def edit

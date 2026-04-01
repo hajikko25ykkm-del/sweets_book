@@ -23,8 +23,8 @@
           </div>
           <% if devise_mapping.rememberable? %>
             <div class="mb-4">
-              <%= f.check_box :remember_me %>
-              <%= f.label :保存 %>
+              <%= f.check_box :remember_created_at %>
+              <%= f.label :remember_created_at, "ログイン情報を保存する" %>
             </div>
           <% end %>
           <div class="d-grid mt-4">

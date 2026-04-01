@@ -23,6 +23,8 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :genre, presence: true 
   validates :body, presence: true
+  validates :post_ingredients, presence: true
+  validates :steps, presence: true
 
   # --- 4. インスタンスメソッド ---
   def favorited_by?(user)

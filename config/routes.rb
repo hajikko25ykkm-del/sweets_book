@@ -28,8 +28,11 @@ Rails.application.routes.draw do
     get :favorites, to: 'favorites#index'
   end
 
+  get 'all_posts', to: 'posts#index', as: 'all_posts'
+  get 'posts', to: 'posts#new'
   get 'posts/favorites', to: 'favorites#index', as: 'favorite_posts'
-  resources :posts do
+
+  resources :posts, except: [:index] do
     resource :favorite, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
   end

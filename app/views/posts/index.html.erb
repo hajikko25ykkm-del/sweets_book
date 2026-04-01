@@ -1,15 +1,42 @@
-<section class="post-index">
-  <h2 class="index-title"><i class="fa-solid fa-utensils"></i> 投稿一覧</h2>
+<div class="index-container">
+  
+  <aside class="genre-sidebar">
+    <h3 class="sidebar-title">
+      <i class="fa-solid fa-tag"></i> ジャンル
+    </h3>
+    <ul class="genre-list">
+      <li class="genre-item all-posts">
+        <%= link_to "すべて表示", all_posts_path, class: "genre-link" %>
+      </li>
+      <% @genres.each do |genre| %>
+        <li class="genre-item">
+          <%= link_to all_posts_path(genre_id: genre.id), class: "genre-link" do %>
+            <span class="genre-name"><%= genre.name %></span>
+            <span class="genre-count"><%= genre.posts.viewable_by(current_user).count %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </aside>
 
-  <hr></hr>
+  <main class="index-main">
+    <section class="post-index">
+      <h2 class="index-title">
+        <i class="fa-solid fa-utensils"></i> 
+        <%= @genre ? "#{@genre.name} 一覧" : "投稿一覧" %>
+      </h2>
 
-  <div class="post-grid">
-    <% @posts.each do |post| %>
-      <%= render 'post_card', post: post %>
-    <% end %>
-  </div>
-</section>
+      <hr class="index-divider">
 
-<div class="pagination-wrapper my-2">
-  <%= paginate @posts %>
+      <div class="post-grid">
+        <% @posts.each do |post| %>
+          <%= render 'post_card', post: post %>
+        <% end %>
+      </div>
+    </section>
+
+    <div class="index-pagination">
+      <%= paginate @posts %>
+    </div>
+  </main>
 </div>

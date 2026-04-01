@@ -23,7 +23,7 @@
           投稿日: <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
         </p>
         <div class="recipe-actions">
-          <%= link_to '一覧に戻る', posts_path, class: "btn-back" %>
+          <%= link_to '一覧に戻る', all_posts_path, class: "btn-back" %>
           
           <% if @post.user == current_user %>
             <%= link_to '編集する', edit_post_path(@post),class: "btn-edit" %>
