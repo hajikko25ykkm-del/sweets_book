@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  devise_for :admins, controllers: {
-    sessions: 'admins/sessions'
-  }
+  devise_for :admins, controllers: { sessions: 'admins/sessions' }
   devise_for :users
 
   namespace :admin do
@@ -21,6 +19,7 @@ Rails.application.routes.draw do
   get 'homes/about', to: 'homes#about', as: 'about'
   get "search" => "searches#index"
 
+  get '/mypage', to: 'users#show', as: 'mypage'
   resources :users, only: [:show, :edit, :index, :update, :destroy] do
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
@@ -28,7 +27,6 @@ Rails.application.routes.draw do
     patch :update_privacy, on: :member
     get :favorites, to: 'favorites#index'
   end
-  get '/mypage', to: 'users#show', as: 'mypage'
 
   resources :posts do
     resource :favorite, only: [:create, :destroy]

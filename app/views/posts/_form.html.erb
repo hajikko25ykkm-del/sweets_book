@@ -6,7 +6,6 @@
         <%= form_with(model: @post, local: true) do |f| %>
           <% if @post.errors.any? %>
             <div id="error_explanation" class="alert alert-danger">
-              <h2 class="h6"><%= @post.errors.count %>件のエラーがあります</h2>
               <ul class="mb-0 small">
                 <% @post.errors.full_messages.each do |message| %>
                   <li><%= message %></li>
@@ -42,12 +41,15 @@
           <div id="ingredient-container" class="mb-3">
             <h3 class="h5 mb-3">材料</h3>
             <%= f.fields_for :post_ingredients do |pi_form| %>
-              <div class="ingredient-field row g-2 mb-2">
+              <div class="ingredient-field row g-2 mb-2 align-items-center">
                 <div class="col-7">
                   <%= pi_form.text_field :ingredient_name, class: "form-control form-control-sm", placeholder: "材料名" %>
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                   <%= pi_form.text_field :quantity, class: "form-control form-control-sm", placeholder: "分量" %>
+                </div>
+                <div class="col-1 text-end">
+                  <button type="button" class="btn btn-outline-danger btn-sm remove-ingredient">✕</button>
                 </div>
               </div>
             <% end %>
@@ -61,8 +63,9 @@
                 <div class="d-flex align-items-center mb-2">
                   <span class="badge bg-dark me-2">1</span>
                   <%= s.file_field :image, class: "form-control form-control-sm" %>
+                  <button type="button" class="btn btn-outline-danger btn-sm ms-auto remove-step">✕</button>
                 </div>
-                <%= s.text_area :content, class: "form-control", rows: 2, placeholder: "手順を入力" %>
+                <%= s.text_area :content, class: "form-control", rows: 2, placeholder: "作り方を入力" %>
                 <%= s.hidden_field :position, value: 1, class: "step-position" %>
               </div>
             <% end %>
@@ -74,15 +77,15 @@
             <div class="d-flex gap-4 justify-content-center">
               <div class="form-check">
                 <%= f.radio_button :is_public, true, class: "form-check-input", checked: true %>
-                <%= f.label :is_public_true, "全員に公開", class: "form-check-label mr-3" %>
+                <%= f.label :is_public_true, "公開", class: "form-check-label mr-3" %>
               </div>
               <div class="form-check">
                 <%= f.radio_button :is_public, false, class: "form-check-input" %>
-                <%= f.label :is_public_false, "自分のみ（非公開）", class: "form-check-label" %>
+                <%= f.label :is_public_false, "非公開（マイページのみ）", class: "form-check-label" %>
               </div>
             </div>
             <p class="text-muted small text-center mt-3 mb-0">
-              ※非公開にすると、マイページ以外からは見られなくなります。
+              ※非公開にすると、マイページのみ表示されます。
             </p>
           </div>
 
