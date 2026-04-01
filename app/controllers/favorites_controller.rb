@@ -16,6 +16,9 @@ class FavoritesController < ApplicationController
 
   def index
     @favorite_posts = current_user.favorite_posts
+                                  .viewable_by(current_user)
+                                  .order(created_at: :desc)
+                                  .page(params[:page]).per(20)
   end
 
 end

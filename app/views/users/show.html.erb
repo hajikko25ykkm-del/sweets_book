@@ -17,7 +17,7 @@
 
       <% if @user == current_user %>
         <div class="favorite-link-area">
-          <%= link_to favorites_posts_path, class: "btn-favorite-list" do %>
+          <%= link_to favorite_posts_path, class: "btn-favorite-list" do %>
             <i class="fa-solid fa-bookmark"></i> お気に入り一覧
           <% end %>
         </div>

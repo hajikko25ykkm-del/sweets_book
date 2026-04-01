@@ -28,4 +28,12 @@ class Post < ApplicationRecord
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
+
+  scope :viewable_by, ->(user) {
+    if user.present?
+      where("posts.user_id = ? OR posts.is_public = ?", user.id, true)
+    else
+      where(is_public: true)
+    end
+}
 end

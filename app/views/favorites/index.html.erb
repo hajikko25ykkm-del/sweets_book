@@ -6,7 +6,7 @@
   <div class="post-grid">
     <% if @favorite_posts.any? %>
       <% @favorite_posts.each do |post| %>
-        <%= render 'post_card', post: post %>
+        <%= render 'posts/post_card', post: post %>
       <% end %>
     <% else %>
       <p>お気に入りした投稿はまだありません。</p>

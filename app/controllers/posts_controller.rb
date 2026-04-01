@@ -20,18 +20,13 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.viewable_by(current_user).find(params[:id])
   end
 
   def index
-    if user_signed_in?
-      @posts = Post.joins(:user).where(
-        "(posts.is_public = ? OR posts.user_id = ?) AND (users.privacy = ? OR users.id IN (?) OR users.id = ?)",
-        true, current_user.id, false, current_user.following_ids, current_user.id )
-    else
-      @posts = Post.joins(:user).where(posts: { is_public: true }, users: { privacy: false })
-    end
-    @posts = @posts.order(created_at: :desc).page(params[:page]).per(20)
+    @posts = Post.viewable_by(current_user)
+                 .order(created_at: :desc)
+                 .page(params[:page]).per(20)
   end
 
   def edit
@@ -43,7 +38,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to post_path(@post), notice: "投稿を更新しました。"
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -51,10 +46,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_path, notice: "投稿を削除しました。"
-  end
-
-  def favorites
-    @favorite_posts = current_user.favorite_posts
   end
 
   private
