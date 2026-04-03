@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :ensure_guest_user, only: [:new, :create, :show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :ensure_guest_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def new
@@ -29,8 +29,8 @@ class PostsController < ApplicationController
     @posts = Post.viewable_by(current_user).order(created_at: :desc)
     
     if params[:genre_id].present?
-      @genre = Genre.find(params[:genre_id])
-      @posts = @posts.where(genre_id: params[:genre_id])
+      @genre = Genre.find_by(id: params[:genre_id]) 
+      @posts = @posts.where(genre_id: params[:genre_id]) if @genre
     end
 
     @posts = @posts.page(params[:page]).per(20)

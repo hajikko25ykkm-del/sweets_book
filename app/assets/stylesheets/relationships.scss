@@ -40,3 +40,42 @@
     }
   }
 }
+
+// 1. 「フォローする」ボタン
+.btn-custom-follow {
+  background-color: #dc7252 !important;
+  border: 1px solid #ffab91 !important;
+  color: #ffffff !important;
+  padding: 6px 16px !important;
+  border-radius: 20px !important;
+  font-weight: bold !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+
+  &:hover {
+    background-color: #ff8a65 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+}
+
+// 2. 「フォロー中（解除）」ボタン
+.btn-custom-unfollow {
+  background-color: #eceff1 !important;
+  border: 1px solid #cfd8dc !important;
+  color: #607d8b !important;
+  padding: 6px 16px !important;
+  border-radius: 20px !important;
+  font-weight: bold !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+
+  &:hover {
+    background-color: #cfd8dc !important;
+    color: #455a64 !important;
+    transform: translateY(-2px);
+  }
+}

@@ -39,16 +39,28 @@
 
 <section class="user-posts post-index container">
   <h2 class="index-title"><i class="fa-solid fa-utensils"></i> 投稿したレシピ</h2>
-  <div class="post-grid">
-    <% if @posts.any? %>
-      <% @posts.each do |post| %>
-        <%= render 'posts/post_card', post: post %>
+
+  <% if @user != current_user && @user.privacy %>
+    
+    <div class="private-account-lock text-center">
+      <p class="lock-title">このアカウントの投稿は非公開です</p>
+      <p class="lock-text">ユーザーの設定により、すべての投稿が非表示になっています。</p>
+    </div>
+
+  <% else %>
+    <div class="post-grid">
+      <% if @posts.any? %>
+        <% @posts.each do |post| %>
+          <%= render 'posts/post_card', post: post %>
+        <% end %>
+      <% else %>
+        <div class="empty-state">
+          <p class="empty-text">まだ投稿したレシピはありません。</p>
+          <% if @user == current_user %>
+            <%= link_to "レシピを投稿する", new_post_path, class: "btn-post-link" %>
+          <% end %>
+        </div>
       <% end %>
-    <% else %>
-      <p class="empty-text">まだ投稿したレシピはありません。</p>
-    <% if @user == current_user %>
-      <%= link_to "レシピを投稿する", new_post_path, class: "btn-post-link" %>
-    <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </section>
