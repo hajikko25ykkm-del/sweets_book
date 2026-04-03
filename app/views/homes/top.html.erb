@@ -26,20 +26,25 @@
             <h5 class="mb-3">一緒にお菓子作ってみませんか？</h5>
             <div class="cta-actions">
               <% if user_signed_in? %>
-                <p class="mt-5">
-                  <%= link_to "新しいレシピを書く", new_post_path %>
-                </p>
+                <div class="mt-5">
+                  <%= link_to "新しいレシピを書く", new_post_path, class: "btn-main" %>
+                </div>
               <% else %>
-                <p class="mt-5">
-                  <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, method: :post %>
-                </p>
-                <%= link_to "新規登録", new_user_registration_path %> |
-                <%= link_to "ログイン", new_user_session_path %>
+                <div class="auth-buttons">
+                  <div class="mt-5">
+                    <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, method: :post, class: "btn-guest" %>
+                  </div>
+                  
+                  <div class="sub-buttons mt-4">
+                    <%= link_to "新規登録", new_user_registration_path, class: "btn-signup" %>
+                    <span class="divider">/</span>
+                    <%= link_to "ログイン", new_user_session_path, class: "btn-login" %>
+                  </div>
+                </div>
               <% end %>
             </div>
           </div>
         </section>
-
       </div>
     </div>
   </div>
