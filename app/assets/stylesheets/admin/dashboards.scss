@@ -17,7 +17,7 @@
         flex: 1; background: #fff; border: 1px solid #cfd8dc; border-radius: 8px;
         .stat-link { 
           display: flex; align-items: center; padding: 20px; text-decoration: none; color: inherit;
-          &:hover { background-color: #f8f9fa; }
+          &:hover { background-color: #e1e8ed; }
         }
         .stat-icon-circle {
           width: 50px; height: 50px; background: #eceff1; border-radius: 50%;
@@ -63,7 +63,8 @@
     tbody {
       tr {
         border-bottom: 1px solid #eceff1;
-        &:hover { background: #fffde7; } /* ホバーで行を強調 */
+        transition: background 0.2s;
+        &:hover { background-color: #eef2f5; } 
         &:last-child { border: none; }
       }
       td { padding: 12px 15px; vertical-align: middle; color: #37474f; }
@@ -72,7 +73,7 @@
     /* 各列の調整 */
     .col-id { color: #90a4ae; font-family: monospace; }
     .col-date { font-size: 0.8rem; color: #78909c; }
-    .admin-mini-thumb { border-radius: 4px; border: 1px solid #eee; }
+    .admin-mini-thumb { border-radius: 4px; border: 1px solid #eee; object-fit: cover; width: 45px; height: 45px; }
     .no-img-label { font-size: 0.75rem; color: #ccc; }
     
     .admin-title-link {
@@ -81,10 +82,24 @@
     }
 
     .admin-link-delete {
-      color: #e53935; font-size: 0.8rem; text-decoration: none;
-      padding: 4px 8px; border-radius: 4px;
-      &:hover { background: #ffebee; }
-      i { margin-right: 3px; }
+      color: #e53935; 
+      font-size: 0.8rem; 
+      font-weight: bold;
+      text-decoration: none;
+      padding: 6px 12px; 
+      border: 1px solid #ffcdd2; 
+      border-radius: 6px;
+      transition: 0.2s;
+      display: inline-block;
+
+      i { margin-right: 4px; }
+
+      &:hover { 
+        background: #e53935; 
+        color: #fff; 
+        border-color: #e53935;
+        box-shadow: 0 2px 5px rgba(229, 57, 53, 0.2);
+      }
     }
   }
 }

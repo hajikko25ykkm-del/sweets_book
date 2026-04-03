@@ -6,118 +6,63 @@
    管理者用：投稿一覧ページ
    ========================================================================== */
 .admin-post-index {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 30px;
 
-  .admin-title {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #546e7a;
-    font-weight: bold;
-    i { margin-right: 10px; color: #8d6e63; }
-  }
-
-  .admin-divider {
-    border-color: #cfd8dc;
-    margin-bottom: 40px;
-  }
-
-  .post-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    justify-content: center;
-  }
-
-  .post-item-container {
-    width: 30%;
-    min-width: 300px;
-  }
-
-  .post-card {
+  /* テーブル全体の枠と背景 */
+  .admin-table-wrapper {
     background: #fff;
-    border: 1px solid #e0e6ed;
+    border: 1px solid #cfd8dc;
     border-radius: 8px;
-    overflow: hidden; /* 画像の角を丸めるため */
-    transition: all 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-      border-color: #8d6e63;
-    }
-
-    .post-image {
-      width: 100%;
-      height: 180px;
+  .admin-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    
+    thead {
       background: #f8f9fa;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .no-image-placeholder {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #adb5bd;
-      }
+      border-bottom: 2px solid #eceff1;
+      th { padding: 15px; color: #546e7a; font-weight: 600; text-align: left; }
     }
 
-    .post-info {
-      padding: 15px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
+    tbody tr {
+      border-bottom: 1px solid #eceff1;
+      &:hover { background-color: #dddcd7; }
+      
+      td { padding: 12px 15px; vertical-align: middle; }
+    }
 
-      .post-title {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-        a {
-          text-decoration: none;
-          color: #333;
-          font-weight: bold;
-          &:hover { color: #8d6e63; }
-        }
-      }
-
-      .post-meta {
-        font-size: 0.85rem;
-        color: #607d8b;
-        margin-bottom: 15px;
-        flex-grow: 1;
-
-        i { margin-right: 5px; opacity: 0.7; }
-        .post-user { margin-bottom: 4px; }
-      }
-
-      .admin-action-area {
-        border-top: 1px solid #eee;
-        padding-top: 12px;
-        text-align: center;
-
-        .btn-admin-delete {
-          color: #ef5350;
-          font-size: 0.8rem;
-          text-decoration: none;
-          font-weight: bold;
-          transition: 0.2s;
-          i { margin-right: 4px; }
-          &:hover { opacity: 0.7; }
-        }
-      }
+    /* カラムごとの調整 */
+    .col-id { color: #90a4ae; font-family: monospace; }
+    .admin-mini-thumb { border-radius: 4px; object-fit: cover; border: 1px solid #eee; }
+    .admin-title-link { font-weight: bold; color: #1976d2; text-decoration: none; &:hover { text-decoration: underline; } }
+    .col-date { font-size: 0.85rem; color: #78909c; }
+    
+    .admin-link-delete {
+      color: #e53935; font-size: 0.8rem; font-weight: bold; text-decoration: none;
+      padding: 5px 10px; border: 1px solid #ffcdd2; border-radius: 4px;
+      &:hover { background: #e53935; color: #fff; }
     }
   }
-}
 
-/* ページネーションの調整 */
-.pagination-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 40px 0;
+  /* ページネーション */
+  .pagination-wrapper {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    
+    .pagination {
+      display: flex; gap: 5px;
+      span, a {
+        padding: 8px 14px; border: 1px solid #cfd8dc; border-radius: 4px;
+        text-decoration: none; color: #546e7a; background: #fff;
+      }
+      .current { background: #8d6e63; color: #fff; border-color: #8d6e63; }
+      a:hover { background: #f8f9fa; }
+    }
+  }
 }

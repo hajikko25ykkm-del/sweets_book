@@ -11,8 +11,8 @@
 
 /* --- 管理者用ヘッダー --- */
 header.admin-mode {
-  background-color: #9fdba9 !important;
-  border-bottom: 2px solid #86c091;
+  background-color: #1f7a2e !important;
+  border-bottom: 2px solid #738777;
 }
 
 /* --- ヘッダー全体のレイアウト（一般ユーザー・基本設定） --- */
@@ -37,7 +37,7 @@ header {
     transition: all 0.3s;
     
     &:hover {
-      color: #ffecb3;
+      color: #ccbc8c;
     }
   }
 
@@ -65,7 +65,7 @@ header {
       transition: all 0.3s;
 
       &:hover {
-        color: #ffecb3;
+        color: #e8a86c;
       }
     }
   }

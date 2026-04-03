@@ -1,0 +1,89 @@
+/* ==========================================================================
+   管理者用：全画面共通レスポンシブ
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .admin-dashboard-wrapper, 
+  .admin-user-index, 
+  .admin-post-index, 
+  .admin-user-profile {
+    padding: 15px 10px; 
+  }
+
+  .admin-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+
+    .admin-title { 
+      font-size: 1.2rem; 
+      i { margin-right: 8px; }
+    }
+    
+    .admin-stats-badge {
+      font-size: 0.8rem;
+      padding: 4px 12px;
+    }
+
+    .btn-admin-outline {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+  }
+
+  .admin-stats-container {
+    .stats-flex {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stat-item .stat-link {
+      padding: 15px;
+    }
+  }
+
+  .admin-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #cfd8dc;
+    
+    .admin-data-table {
+      min-width: 750px;
+      
+      th, td {
+        padding: 10px; 
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  .user-info-card {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px !important;
+
+    .info-item {
+      width: 100%;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      &:last-child { border-bottom: none; }
+    }
+  }
+
+  .admin-link-delete, .admin-link-withdraw {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-divider {
+    margin: 25px 0;
+  }
+  .admin-title {
+    font-size: 1.1rem;
+  }
+}

@@ -1,41 +1,55 @@
 <section class="admin-user-index">
-  <h1 class="admin-title">
-    <i class="fa-solid fa-users-gear"></i> ユーザー登録者管理
-  </h1>
+  <div class="admin-section-header">
+    <h1 class="admin-title">
+      <i class="fa-solid fa-users-gear"></i> ユーザー登録者管理
+    </h1>
+    <div class="admin-stats-badge">
+      現在: <strong><%= @users.count %></strong> 名
+    </div>
+  </div>
 
   <hr class="admin-divider">
 
-  <div class="user-grid">
-    <% @users.each do |user| %>
-      <div class="user-item-container">
-        
-        <%= link_to admin_user_path(user), class: "user-card-link" do %>
-          <div class="user-card">
-            <div class="user-info">
-              <h3 class="user-name">
-                <%= user.name %> <span class="user-id">(ID: <%= user.id %>)</span>
-              </h3>
-              
-              <div class="user-contact">
-                <strong>Email:</strong>
-                <p><%= user.email %></p>
-              </div>
-
-              <div class="user-date">
-                登録日: <%= user.created_at.strftime('%Y/%m/%d') %>
-              </div>
-            </div>
-          </div>
+  <div class="admin-table-wrapper">
+    <table class="admin-data-table">
+      <thead>
+        <tr>
+          <th class="w-10">ユーザーID</th>
+          <th class="w-20">ユーザー名</th>
+          <th class="w-30">メールアドレス</th>
+          <th class="w-15">登録日</th>
+          <th class="w-10 text-center">投稿数</th>
+          <th class="w-15 text-end">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr class="admin-user-row">
+            <td class="col-id">#<%= user.id %></td>
+            <td class="col-name">
+              <%= link_to admin_user_path(user), class: "admin-user-link" do %>
+                <i class="fa-solid fa-circle-user"></i> <%= user.name %>
+              <% end %>
+            </td>
+            <td class="col-email">
+              <span class="email-text"><%= user.email %></span>
+            </td>
+            <td class="col-date">
+              <%= user.created_at.strftime("%Y/%m/%d") %>
+            </td>
+            <td class="col-count text-center">
+              <span class="count-badge"><%= user.posts.count %></span>
+            </td>
+            <td class="col-action text-end">
+              <%= link_to admin_user_path(user), method: :delete,
+                          data: { confirm: "#{user.name}さんを退会させますか？" },
+                          class: "admin-link-withdraw" do %>
+                <i class="fa-solid fa-user-slash"></i> 退会
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-
-        <div class="admin-action-area">
-          <%= link_to admin_user_path(user), method: :delete, 
-                data: { confirm: "#{user.name}さんを退会させますか？" }, 
-                class: "btn-admin-withdraw" do %>
-            <i class="fa-solid fa-user-slash"></i> ユーザーを退会させる
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+      </tbody>
+    </table>
   </div>
 </section>

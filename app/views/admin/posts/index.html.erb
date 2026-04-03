@@ -1,55 +1,68 @@
 <section class="admin-post-index">
-  <%# 管理用アイコンを追加 %>
-  <h1 class="admin-title">
-    <i class="fa-solid fa-newspaper"></i> 投稿一覧（管理者）
-  </h1>
+  <div class="admin-section-header">
+    <h1 class="admin-title">
+      <i class="fa-solid fa-newspaper"></i> 投稿管理
+    </h1>
+    <div class="admin-stats-badge">
+      全 <strong><%= @posts.total_count %></strong> 件
+    </div>
+  </div>
 
   <hr class="admin-divider">
 
-  <div class="post-grid">
-    <% @posts.each do |post| %>
-      <div class="post-item-container">
-        
-        <div class="post-card">
-          <%= link_to admin_post_path(post), class: "post-image-link" do %>
-            <div class="post-image">
-              <% if post.image.attached? %>
-                <%= image_tag post.image %>
-              <% else %>
-                <div class="no-image-placeholder">No Image</div>
-              <% end %>
-            </div>
-          <% end %>
-
-          <div class="post-info">
-            <h3 class="post-title">
-              <%= link_to post.title, admin_post_path(post) %>
-            </h3>
+  <div class="admin-table-wrapper">
+    <table class="admin-data-table">
+      <thead>
+        <tr>
+          <th class="w-10">ID</th>
+          <th class="w-10">画像</th>
+          <th class="w-40">タイトル</th>
+          <th class="w-20">投稿者</th>
+          <th class="w-15">投稿日時</th>
+          <th class="w-10 text-end">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr class="admin-post-row">
+            <td class="col-id">#<%= post.id %></td>
             
-            <div class="post-meta">
-              <p class="post-user">
-                <i class="fa-solid fa-user-pen"></i> <span>投稿者:</span> <%= post.user.name %>
-              </p>
-              <div class="post-date">
-                <i class="fa-regular fa-calendar-check"></i> <%= post.created_at.strftime('%Y/%m/%d') %>
-              </div>
-            </div>
-
-            <%# 削除アクションエリア %>
-            <div class="admin-action-area">
-              <%= link_to admin_post_path(post), method: :delete, 
-                    data: { confirm: '本当にこの投稿を削除しますか？' }, 
-                    class: "btn-admin-delete" do %>
-                <i class="fa-solid fa-trash-can"></i> 管理権限で削除
+            <td class="col-img">
+              <% if post.image.attached? %>
+                <%= image_tag post.image.variant(resize_to_limit: [50, 50]), class: "admin-mini-thumb" %>
+              <% else %>
+                <div class="no-img-label">なし</div>
               <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
+            </td>
+            
+            <td class="col-title">
+              <%= link_to post.title, admin_post_path(post), class: "admin-title-link" %>
+            </td>
+            
+            <td class="col-user">
+              <span class="admin-user-label">
+                <i class="fa-solid fa-circle-user"></i> <%= post.user.name %>
+              </span>
+            </td>
+            
+            <td class="col-date">
+              <%= post.created_at.strftime('%Y/%m/%d %H:%M') %>
+            </td>
+            
+            <td class="col-action text-end">
+              <%= link_to admin_post_path(post), method: :delete, 
+                    data: { confirm: '管理権限でこの投稿を削除しますか？' }, 
+                    class: "admin-link-delete" do %>
+                <i class="fa-solid fa-trash-can"></i> 削除
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination-wrapper">
+    <%= paginate @posts %>
   </div>
 </section>
-
-<div class="pagination-wrapper">
-  <%= paginate @posts %>
-</div>
