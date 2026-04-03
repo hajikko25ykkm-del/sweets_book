@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   devise_for :admins, controllers: { sessions: 'admins/sessions' }
   devise_for :users
 
+  devise_scope :user do
+    get '/users', to: 'devise/registrations#new'
+  end
+
   namespace :admin do
     root to: 'dashboards#index'
     get 'dashboards', to: 'dashboards#index'

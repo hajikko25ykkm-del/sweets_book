@@ -436,6 +436,51 @@
     }
   }
 
+  /* ヘルプマーク全体の親 */
+  .help-bubble-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: help;
+
+    /* はてなアイコン */
+    .help-icon {
+      color: #a1887f;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+      &:hover { color: #5d4037; }
+    }
+
+    /* 吹き出し本体 */
+    .help-bubble-content {
+      position: absolute;
+      bottom: 140%;
+      right: -10px;
+      
+      background-color: #5d4037;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      
+      /* アニメーション設定 */
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    /* ホバー時の動き */
+    &:hover .help-bubble-content {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
 /* --- コメントセクション全体 --- */
   .comment-section {
     margin-top: 40px;
