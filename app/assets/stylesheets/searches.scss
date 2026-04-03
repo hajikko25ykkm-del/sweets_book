@@ -1,3 +1,126 @@
 // Place all the styles related to the Searches controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+/* ==========================================================================
+   検索結果ページ
+   ========================================================================== */
+
+/* 背景ボード：マイページと共通デザイン */
+.index-board {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.search-results-section {
+  .search-title {
+    font-size: 1.4rem;
+    color: #455a64;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    i { color: #ffe082; margin-right: 5px; }
+    .search-word { color: #8d6e63; }
+
+    .search-range-badge {
+      font-size: 0.8rem;
+      background: #f1f4f6;
+      color: #607d8b;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-weight: normal;
+    }
+  }
+
+  .title-divider {
+    border: 0;
+    border-top: 2px dashed #eceff1;
+    margin: 20px 0 30px;
+  }
+}
+
+/* --- ユーザー検索結果 --- */
+.user-search-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.user-search-card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: #fdfbfb;
+  border-radius: 20px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #eceff1;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(141, 110, 99, 0.1);
+    border-color: #ffecb3;
+    background-color: #fff;
+  }
+
+  .user-avatar-wrapper {
+    margin-right: 15px;
+    flex-shrink: 0;
+    .user-avatar, .user-avatar-placeholder {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: #f1f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      i { color: #a97c6e; font-size: 3.5rem; }
+    }
+  }
+
+  .user-info {
+    flex-grow: 1;
+    min-width: 0;
+
+    .user-name {
+      display: block;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #37474f;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-stats {
+      font-size: 0.8rem;
+      color: #8d6e63;
+      background: #fdf5f2;
+      padding: 3px 12px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      i { margin-right: 4px; color: #ffab91; }
+    }
+  }
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}

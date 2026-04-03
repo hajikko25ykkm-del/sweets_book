@@ -2,12 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 /* users.scss */
+
 /* --- ユーザープロフィール（一般） --- */
 .user-profile {
   .profile-layout {
     display: flex;
-    justify-content: space-between; /* これで両端に配置 */
-    align-items: flex-end; /* 下のラインを揃える */
+    justify-content: space-between;
+    align-items: flex-end;
   }
 
   .profile-name {
@@ -63,7 +64,7 @@
     }
   }
 
-  /* プロフィール編集ボタン：右端に配置 */
+  /* プロフィール編集ボタン */
   .profile-action {
     .btn-edit-profile {
       display: inline-block;

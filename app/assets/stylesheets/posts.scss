@@ -436,7 +436,7 @@
     }
   }
 
-  /* ヘルプマーク全体の親 */
+  /* ヘルプマーク全体 */
   .help-bubble-wrapper {
     position: relative;
     display: inline-flex;
@@ -456,15 +456,14 @@
       position: absolute;
       bottom: 140%;
       right: -10px;
-      
+
       background-color: #5d4037;
       color: #fff;
       padding: 8px 15px;
       border-radius: 20px;
       font-size: 0.75rem;
       white-space: nowrap;
-      
-      /* アニメーション設定 */
+
       visibility: hidden;
       opacity: 0;
       transform: translateY(10px);
@@ -473,7 +472,6 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* ホバー時の動き */
     &:hover .help-bubble-content {
       visibility: visible;
       opacity: 1;
@@ -716,18 +714,4 @@
   display: inline-block;
   line-height: 1;
   vertical-align: middle;
-}
-
-/* ==========================================================================
-   6. スマホ対応（Responsive）
-   ========================================================================== */
-@media (max-width: 800px) {
-  .recipe-detail-container { width: 95%; }
-  .recipe-main-header { flex-direction: column; }
-  .post-card-container { width: 100%; }
-}
-@media (max-width: 768px) {
-  .index-container { flex-direction: column; align-items: center; }
-  .genre-sidebar { width: 100%; border-right: none; border-bottom: 1px dashed #dcdcdc; }
-  .index-main .post-index .post-grid { justify-content: center; padding-left: 0; }
 }

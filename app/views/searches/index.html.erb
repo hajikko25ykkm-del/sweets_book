@@ -1,35 +1,44 @@
-<section class="post-index">
-  <h2 class="index-title">
-    "<%= @word %>" の検索結果 (<%= @range == 'User' ? 'ユーザー' : '投稿' %>)
-  </h2>
+<div class="index-board">
+  <section class="post-index">
+    <h2 class="index-title">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      "<%= @word %>" の検索結果
+      <span class="search-range-badge"><%= @range == 'User' ? 'ユーザー' : '投稿' %></span>
+    </h2>
 
-  <hr>
+    <hr class="title-divider">
 
-  <% if @range == "User" %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>名前</th>
-          <th>詳細リンク</th>
-        </tr>
-      </thead>
-      <tbody>
+    <% if @range == "User" %>
+      <div class="user-search-grid">
         <% @results.each do |user| %>
-          <tr>
-            <td><%= user.name %></td>
-            <td><%= link_to "プロフィールへ", user_path(user) %></td>
-          </tr>
+          <%= link_to user_path(user), class: "user-search-card" do %>
+            <div class="user-avatar-wrapper">
+              <% if user.respond_to?(:avatar) && user.avatar.attached? %>
+                <%= image_tag user.avatar.variant(resize_to_limit: [100, 100]), class: "user-avatar" %>
+              <% else %>
+                <div class="user-avatar-placeholder"><i class="fa-solid fa-circle-user"></i></div>
+              <% end %>
+            </div>
+            <div class="user-info">
+              <span class="user-name"><%= user.name %></span>
+              <span class="user-stats"><i class="fa-solid fa-heart"></i> <%= user.posts.count %> 投稿</span>
+            </div>
+            <div class="user-card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+          <% end %>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+
     <% elsif @range == "Post" %>
       <div class="post-grid">
         <% @results.each do |post| %>
           <%= render 'posts/post_card', post: post %>
         <% end %>
       </div>
-    <% else %>
-      <p>検索対象を選択してください。</p>
-    <% end %>
 
-</section>
+    <% else %>
+      <div class="no-results-msg">
+        <p>検索対象を選択してください。</p>
+      </div>
+    <% end %>
+  </section>
+</div>
