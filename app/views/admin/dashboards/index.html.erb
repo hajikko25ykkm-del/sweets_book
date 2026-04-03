@@ -1,10 +1,6 @@
 <div class="admin-dashboard-wrapper">
-  <%# 1. サイト全体の状況（中央にコンパクトに配置） %>
   <div class="admin-stats-container">
-    <h2 class="stats-title">
-      <i class="fa-solid fa-chart-line"></i> サイト全体の状況
-    </h2>
-    
+    <h2 class="stats-title"><i class="fa-solid fa-chart-line"></i> サイト全体の状況</h2>
     <div class="stats-flex">
       <div class="stat-item">
         <%= link_to admin_users_path, class: "stat-link" do %>
@@ -12,21 +8,18 @@
           <div class="stat-content">
             <p class="stat-label">登録者</p>
             <p class="stat-value-wrapper">
-              <span class="value-num accent"><%= @user_count || 0 %></span>
-              <span class="value-unit">人</span>
+              <span class="value-num accent"><%= @user_count || 0 %></span><span class="value-unit">人</span>
             </p>
           </div>
         <% end %>
       </div>
-
       <div class="stat-item">
         <%= link_to admin_posts_path, class: "stat-link" do %>
           <div class="stat-icon-circle"><i class="fa-solid fa-file-invoice"></i></div>
           <div class="stat-content">
             <p class="stat-label">投稿総数</p>
             <p class="stat-value-wrapper">
-              <span class="value-num"><%= @post_count || 0 %></span>
-              <span class="value-unit">件</span>
+              <span class="value-num"><%= @post_count || 0 %></span><span class="value-unit">件</span>
             </p>
           </div>
         <% end %>
@@ -36,55 +29,53 @@
 
   <hr class="admin-divider">
 
-  <%# 2. 最新の投稿（タイル状のグリッドに戻す） %>
-  <section class="admin-post-index dashboard-section">
-    <h2 class="index-title">
-      <i class="fa-solid fa-bell"></i> 最新の投稿（5件）
-    </h2>
-
-    <div class="post-grid">
-      <% if @posts.any? %>
-        <% @posts.each do |post| %>
-          <div class="post-item-container">
-            <div class="post-card">
-              <%= link_to admin_post_path(post), class: "post-image-link" do %>
-                <div class="post-image">
-                  <%= image_tag post.image if post.image.attached? %>
-                </div>
-              <% end %>
-
-              <div class="post-info">
-                <h3 class="post-title">
-                  <%= link_to post.title, admin_post_path(post) %>
-                </h3>
-                
-                <div class="post-meta">
-                  <p class="post-user"><i class="fa-solid fa-user"></i> <%= post.user.name %></p>
-                  <div class="post-date"><%= post.created_at.strftime('%Y/%m/%d') %></div>
-                </div>
-                
-                <div class="admin-action-area">
-                  <%= link_to admin_post_path(post), method: :delete, 
-                        data: { confirm: '管理権限で削除しますか？' }, 
-                        class: "btn-admin-delete" do %>
-                    <i class="fa-solid fa-trash-can"></i> 削除
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% else %>
-        <div class="empty-state">
-          <p>現在、表示できる投稿はありません。</p>
-        </div>
+  <section class="admin-management-section">
+    <div class="admin-section-header">
+      <h2 class="index-title"><i class="fa-solid fa-bell"></i> 最新の投稿（5件）</h2>
+      <%= link_to admin_posts_path, class: "btn-admin-outline" do %>
+        すべての投稿を管理 <i class="fa-solid fa-chevron-right"></i>
       <% end %>
     </div>
 
-    <div class="text-center mt-5">
-      <%= link_to admin_posts_path, class: "view-all-link" do %>
-        すべての投稿を管理する <i class="fa-solid fa-angles-right"></i>
-      <% end %>
+    <div class="admin-table-wrapper">
+      <table class="admin-data-table">
+        <thead>
+          <tr>
+            <th class="w-10">投稿ID</th>
+            <th class="w-15">投稿日時</th>
+            <th class="w-10">画像</th>
+            <th class="w-35">タイトル</th>
+            <th class="w-20">投稿者</th>
+            <th class="w-10 text-center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+            <tr>
+              <td class="col-id">#<%= post.id %></td>
+              <td class="col-date"><%= post.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              <td class="col-img">
+                <% if post.image.attached? %>
+                  <%= image_tag post.image.variant(resize_to_limit: [40, 40]), class: "admin-mini-thumb" %>
+                <% else %>
+                  <span class="no-img-label">なし</span>
+                <% end %>
+              </td>
+              <td class="col-title">
+                <%= link_to post.title, admin_post_path(post), class: "admin-title-link" %>
+              </td>
+              <td class="col-user">
+                <i class="fa-regular fa-user"></i> <%= post.user.name %>
+              </td>
+              <td class="col-action text-center">
+                <%= link_to admin_post_path(post), method: :delete, data: { confirm: '管理権限で削除しますか？' }, class: "admin-link-delete" do %>
+                  <i class="fa-solid fa-trash-can"></i> 削除
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </section>
 </div>
